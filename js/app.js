@@ -6,53 +6,57 @@ class MENANG888App {
     }
 
     init() {
+        this.hideLoadingImmediately(); // Hide loading FIRST
         this.setupEventListeners();
         this.checkAutoLogin();
         
         if (!this.currentUser) {
-            this.showModal('login-modal');
-        } else {
-            this.hideLoading(); // Hide loading immediately if user is logged in
+            setTimeout(() => this.showModal('login-modal'), 100);
         }
     }
 
+    hideLoadingImmediately() {
+        // Force hide loading screen
+        const loadingScreen = document.getElementById('loading-screen');
+        const progressLoader = document.getElementById('progress-loader');
+        
+        if (loadingScreen) {
+            loadingScreen.style.display = 'none';
+        }
+        if (progressLoader) {
+            progressLoader.style.display = 'none';
+        }
+        
+        document.body.classList.add('loaded');
+    }
+
     setupEventListeners() {
-        document.getElementById('logout-btn').addEventListener('click', () => {
+        document.getElementById('logout-btn')?.addEventListener('click', () => {
             this.logout();
         });
 
-        document.getElementById('admin-btn').addEventListener('click', () => {
+        document.getElementById('admin-btn')?.addEventListener('click', () => {
             if (this.currentUser && this.currentUser.isAdmin) {
                 window.location.href = 'admin.html';
-            } else {
-                this.showNotification('Akses ditolak. Hanya admin!', 'error');
             }
         });
 
+        // Quick modal handlers
         document.querySelectorAll('.close-modal').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const modal = e.target.closest('.modal');
                 this.hideModal(modal.id);
             });
         });
-
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    this.hideModal(modal.id);
-                }
-            });
-        });
     }
 
     showModal(modalId) {
-        this.hideLoading(); // Ensure loading is hidden when showing modal
-        document.getElementById(modalId).classList.add('active');
+        document.getElementById(modalId)?.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
     hideModal(modalId) {
-        document.getElementById(modalId).classList.remove('active');
+        document.getElementById(modalId)?.classList.remove('active');
         document.body.style.overflow = 'auto';
     }
 
@@ -62,14 +66,16 @@ class MENANG888App {
             this.currentUser = JSON.parse(savedUser);
             document.getElementById('main-app').style.display = 'block';
             this.updateUserDisplay();
-            this.hideLoading(); // Hide loading immediately
         }
     }
 
     updateUserDisplay() {
         if (!this.currentUser) return;
-        document.getElementById('balance').textContent = this.currentUser.balance.toLocaleString();
-        document.getElementById('user-id-display').textContent = this.currentUser.id;
+        const balanceEl = document.getElementById('balance');
+        const userIdEl = document.getElementById('user-id-display');
+        
+        if (balanceEl) balanceEl.textContent = this.currentUser.balance.toLocaleString();
+        if (userIdEl) userIdEl.textContent = this.currentUser.id;
     }
 
     logout() {
@@ -77,48 +83,28 @@ class MENANG888App {
         localStorage.removeItem('menang888_current_user');
         document.getElementById('main-app').style.display = 'none';
         this.showModal('login-modal');
-        this.showNotification('Anda telah logout', 'info');
-    }
-
-    showLoading(message = 'Memuat...') {
-        const loadingScreen = document.getElementById('loading-screen');
-        if (loadingScreen) {
-            loadingScreen.style.display = 'flex';
-            const loadingText = loadingScreen.querySelector('.loading-text p');
-            if (loadingText) {
-                loadingText.textContent = message;
-            }
-        }
-    }
-
-    hideLoading() {
-        const loadingScreen = document.getElementById('loading-screen');
-        if (loadingScreen) {
-            loadingScreen.style.display = 'none';
-        }
     }
 
     showNotification(message, type = 'info') {
-        // Quick notification without delay
+        // Ultra fast notification
         const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
+        notification.className = `notification`;
         notification.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
             background: ${this.getNotificationColor(type)};
             color: white;
-            padding: 12px 18px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 6px;
             z-index: 10000;
-            animation: slideInRight 0.3s ease;
-            max-width: 280px;
-            font-size: 0.9rem;
+            animation: slideInRight 0.2s ease;
+            font-size: 0.85rem;
+            max-width: 250px;
         `;
         
         notification.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
                 <i class="${this.getNotificationIcon(type)}"></i>
                 <span>${message}</span>
             </div>
@@ -126,82 +112,55 @@ class MENANG888App {
 
         document.body.appendChild(notification);
 
-        // Auto remove after shorter time
         setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }, 3000);
+            notification.style.animation = 'slideOutRight 0.2s ease';
+            setTimeout(() => notification.remove(), 200);
+        }, 2000);
     }
 
     getNotificationColor(type) {
         const colors = {
-            info: 'linear-gradient(135deg, var(--info-color), #0066cc)',
-            success: 'linear-gradient(135deg, var(--success-color), #00cc66)',
-            warning: 'linear-gradient(135deg, var(--warning-color), #cc8800)',
-            error: 'linear-gradient(135deg, var(--danger-color), #cc0000)'
+            info: '#0099ff',
+            success: '#00ff88', 
+            warning: '#ffaa00',
+            error: '#ff4444'
         };
         return colors[type] || colors.info;
     }
 
     getNotificationIcon(type) {
         const icons = {
-            info: 'fas fa-info-circle',
-            success: 'fas fa-check-circle',
-            warning: 'fas fa-exclamation-triangle',
-            error: 'fas fa-times-circle'
+            info: 'fas fa-info',
+            success: 'fas fa-check',
+            warning: 'fas fa-exclamation',
+            error: 'fas fa-times'
         };
         return icons[type] || icons.info;
     }
 }
 
-// Add quick CSS animations
-const quickStyles = document.createElement('style');
-quickStyles.textContent = `
+// Add instant CSS animations
+const instantStyles = document.createElement('style');
+instantStyles.textContent = `
     @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
     }
-    
     @keyframes slideOutRight {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
     }
-    
-    @keyframes slideIn {
-        from {
-            transform: translateY(-20px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
+    .instant { transition: all 0.2s ease !important; }
 `;
-document.head.appendChild(quickStyles);
+document.head.appendChild(instantStyles);
 
-document.addEventListener('DOMContentLoaded', () => {
+// Start app immediately
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        window.app = new MENANG888App();
+        window.authSystem = new AuthSystem(window.app);
+    });
+} else {
     window.app = new MENANG888App();
     window.authSystem = new AuthSystem(window.app);
-    
-    // Hide loading after everything is ready
-    setTimeout(() => {
-        window.app.hideLoading();
-    }, 100);
-});
+}
