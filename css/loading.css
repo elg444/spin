@@ -1,4 +1,4 @@
-/* Adaptive Loading Styles */
+/* INSTANT Loading - No Delay */
 .loading-screen {
     position: fixed;
     top: 0;
@@ -10,33 +10,34 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    animation: fadeOut 0.3s ease 0.5s forwards;
 }
 
 .loading-content {
     text-align: center;
+    animation: scaleDown 0.3s ease 0.5s forwards;
 }
 
 .neon-loader {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 20px;
+    gap: 6px;
+    margin-bottom: 15px;
 }
 
 .loader-circle {
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: var(--primary-color);
     animation: bounce 0.8s infinite ease-in-out;
-    box-shadow: 0 0 10px var(--primary-color);
 }
 
 .loader-circle:nth-child(1) { animation-delay: -0.32s; }
 .loader-circle:nth-child(2) { animation-delay: -0.16s; }
 
 .loading-text .neon-text {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
@@ -46,17 +47,17 @@
 
 .loading-text p {
     color: rgba(255, 255, 255, 0.7);
-    font-size: 1rem;
-    margin-top: 8px;
+    font-size: 0.9rem;
+    margin-top: 5px;
 }
 
-/* Progress Bar */
+/* Progress Bar - Instant */
 .progress-loader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 3px;
+    height: 2px;
     background: rgba(255, 255, 255, 0.1);
     z-index: 10000;
     display: none;
@@ -66,67 +67,24 @@
     height: 100%;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     width: 0%;
-    transition: width 0.3s ease;
-    box-shadow: 0 0 10px var(--primary-color);
+    transition: width 0.2s ease;
 }
-
-/* Connection Speed Detection */
-.speed-fast .loader-circle { animation-duration: 0.6s; }
-.speed-medium .loader-circle { animation-duration: 0.8s; }
-.speed-slow .loader-circle { animation-duration: 1.2s; }
-
-.speed-fast .neon-text { animation: pulse 1s infinite; }
-.speed-medium .neon-text { animation: pulse 1.5s infinite; }
-.speed-slow .neon-text { animation: pulse 2s infinite; }
 
 /* Animations */
 @keyframes bounce {
-    0%, 80%, 100% {
-        transform: scale(0.8);
-        opacity: 0.5;
-    }
-    40% {
-        transform: scale(1.2);
-        opacity: 1;
-    }
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
+    40% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
+@keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+@keyframes scaleDown {
+    to { transform: scale(0.8); opacity: 0; }
 }
 
-/* Skeleton Loading for Content */
-.skeleton {
-    background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-    border-radius: 4px;
+/* Hide loading immediately when page ready */
+body.loaded .loading-screen {
+    animation: fadeOut 0.2s ease forwards !important;
 }
-
-@keyframes loading {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-.skeleton-card {
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
-
-.skeleton-line {
-    height: 12px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-}
-
-.skeleton-line.short { width: 60%; }
-.skeleton-line.medium { width: 80%; }
-.skeleton-line.long { width: 95%; }
