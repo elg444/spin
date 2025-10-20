@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENANG888 - Game Online Terpercaya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-elements">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+        <div class="bg-particle particle-1"></div>
+        <div class="bg-particle particle-2"></div>
+        <div class="bg-particle particle-3"></div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user"></i> Login</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="login-username">Username/ID</label>
+                    <input type="text" id="login-username" class="form-control" placeholder="Masukkan username atau ID">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Masukkan password">
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn btn-secondary" id="goto-register">Daftar Akun Baru</button>
+                    <button class="btn btn-primary btn-glow" id="confirm-login">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> Daftar Akun Baru</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="reg-username">Username/ID</label>
+                    <input type="text" id="reg-username" class="form-control" placeholder="Masukkan username atau ID">
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" class="form-control" placeholder="Masukkan password">
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email</label>
+                    <input type="email" id="reg-email" class="form-control" placeholder="Masukkan email">
+                </div>
+                <div class="form-group">
+                    <label for="reg-phone">No. Handphone</label>
+                    <input type="text" id="reg-phone" class="form-control" placeholder="Masukkan nomor handphone">
+                </div>
+                <div class="form-group">
+                    <label for="reg-bank-account">No. Rekening</label>
+                    <input type="text" id="reg-bank-account" class="form-control" placeholder="Masukkan nomor rekening">
+                </div>
+                <div class="form-group">
+                    <label for="reg-bank-name">Nama Rekening</label>
+                    <input type="text" id="reg-bank-name" class="form-control" placeholder="Masukkan nama rekening">
+                </div>
+                <div class="form-group">
+                    <label>Verifikasi Captcha</label>
+                    <div class="captcha-container">
+                        <div class="captcha-code" id="captcha-text">A1B2C3</div>
+                        <button class="captcha-refresh" id="refresh-captcha"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                    <input type="text" id="reg-captcha" class="form-control" placeholder="Masukkan kode captcha">
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn btn-secondary" id="goto-login">Kembali ke Login</button>
+                    <button class="btn btn-primary btn-glow" id="confirm-register">Daftar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="main-app">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-dice"></i>
+                        <span>MENANG888</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="balance">
+                            <i class="fas fa-coins"></i>
+                            <span id="balance">0</span> koin
+                        </div>
+                        <div class="user-id">
+                            <i class="fas fa-id-card"></i>
+                            <span id="user-id-display">-</span>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                        <button class="btn btn-info btn-sm" id="admin-btn">
+                            <i class="fas fa-cog"></i> Admin
+                        </button>
+                    </div>
+                    <button class="mobile-menu-btn" id="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="container">
+                <div class="nav-tabs">
+                    <div class="nav-tab active" data-target="home-section">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </div>
+                    <div class="nav-tab" data-target="deposit-section">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Deposit</span>
+                    </div>
+                    <div class="nav-tab" data-target="withdraw-section">
+                        <i class="fas fa-wallet"></i>
+                        <span>Withdraw</span>
+                    </div>
+                    <div class="nav-tab" data-target="promo-section">
+                        <i class="fas fa-gift"></i>
+                        <span>Promosi</span>
+                    </div>
+                    <div class="nav-tab" data-target="info-section">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Info Kami</span>
+                    </div>
+                    <div class="nav-tab" data-target="account-section">
+                        <i class="fas fa-user"></i>
+                        <span>Akun Saya</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Home Section -->
+                <div class="content-section active" id="home-section">
+                    <div class="section-header">
+                        <h2>Selamat Datang di MENANG888</h2>
+                        <p>Pilih game favorit Anda dan mulai bermain!</p>
+                    </div>
+                    
+                    <div class="games-grid">
+                        <!-- Game cards will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Other Sections -->
+                <div class="content-section" id="deposit-section">
+                    <!-- Deposit form -->
+                </div>
+
+                <div class="content-section" id="withdraw-section">
+                    <!-- Withdraw form -->
+                </div>
+
+                <div class="content-section" id="promo-section">
+                    <!-- Promo content -->
+                </div>
+
+                <div class="content-section" id="info-section">
+                    <!-- Info content -->
+                </div>
+
+                <div class="content-section" id="account-section">
+                    <!-- Account info -->
+                </div>
+
+                <!-- Admin Panel -->
+                <div class="admin-panel" id="admin-panel">
+                    <!-- Admin content -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="container">
+                <p>&copy; 2024 MENANG888. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
