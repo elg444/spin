@@ -547,53 +547,54 @@
         }
 
         function processWithdraw(amount) {
-            const user = window.app.currentUser;
+    const user = window.app.currentUser;
 
-            // Create withdraw transaction
-            const transaction = {
-                id: 'WD' + Date.now(),
-                userId: user.id,
-                amount: amount,
-                bankName: user.bankName,
-                bankAccount: user.bankAccount,
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-                processedAt: null
-            };
+    // Create withdraw transaction
+    const transaction = {
+        id: 'WD' + Date.now(),
+        userId: user.id,
+        username: user.username,
+        amount: amount,
+        bankName: user.bankName,
+        bankAccount: user.bankAccount,
+        status: 'pending',
+        createdAt: new Date().toISOString(),
+        processedAt: null
+    };
 
-            // Save transaction
-            const transactions = JSON.parse(localStorage.getItem('menang888_withdraws')) || [];
-            transactions.push(transaction);
-            localStorage.setItem('menang888_withdraws', JSON.stringify(transactions));
+    // Save transaction
+    const transactions = JSON.parse(localStorage.getItem('menang888_withdraws')) || [];
+    transactions.push(transaction);
+    localStorage.setItem('menang888_withdraws', JSON.stringify(transactions));
 
-            // Deduct balance (will be reversed if rejected)
-            user.balance -= amount;
-            localStorage.setItem('menang888_current_user', JSON.stringify(user));
+    // Deduct balance (will be reversed if rejected)
+    user.balance -= amount;
+    localStorage.setItem('menang888_current_user', JSON.stringify(user));
 
-            // Update user in users array
-            const userIndex = window.app.users.findIndex(u => u.id === user.id);
-            if (userIndex !== -1) {
-                window.app.users[userIndex] = user;
-                window.app.saveUsers();
-            }
+    // Update user in users array
+    const userIndex = window.app.users.findIndex(u => u.id === user.id);
+    if (userIndex !== -1) {
+        window.app.users[userIndex] = user;
+        window.app.saveUsers();
+    }
 
-            // Show success modal
-            document.getElementById('success-amount').textContent = window.app.formatCurrency(amount);
-            document.getElementById('success-bank').textContent = user.bankName.toUpperCase();
-            document.getElementById('success-account').textContent = user.bankAccount;
-            document.getElementById('withdraw-success-modal').classList.add('active');
+    // Show success modal
+    document.getElementById('success-amount').textContent = window.app.formatCurrency(amount);
+    document.getElementById('success-bank').textContent = user.bankName.toUpperCase();
+    document.getElementById('success-account').textContent = user.bankAccount;
+    document.getElementById('withdraw-success-modal').classList.add('active');
 
-            // Log security event
-            window.app.logSecurityEvent('withdraw_request', `User requested withdraw: ${amount}`);
+    // Log security event
+    window.app.logSecurityEvent('withdraw_request', `User requested withdraw: ${amount}`);
 
-            // Reset form and update display
-            document.getElementById('withdraw-form').reset();
-            document.getElementById('balance-amount').textContent = window.app.formatCurrency(user.balance);
-            document.getElementById('available-balance').textContent = window.app.formatCurrency(user.balance);
+    // Reset form and update display
+    document.getElementById('withdraw-form').reset();
+    document.getElementById('balance-amount').textContent = window.app.formatCurrency(user.balance);
+    document.getElementById('available-balance').textContent = window.app.formatCurrency(user.balance);
 
-            // Reload history
-            loadWithdrawHistory();
-        }
+    // Reload history
+    loadWithdrawHistory();
+}
 
         function loadWithdrawHistory() {
             const transactions = JSON.parse(localStorage.getItem('menang888_withdraws')) || [];
