@@ -445,4 +445,22 @@ function saveGameSettings(gameType) {
 // Initialize admin dashboard
 document.addEventListener('DOMContentLoaded', () => {
     window.adminDashboard = new AdminDashboard();
+// ====== realtime update deposit & withdraw ======
+
+// fungsi buat reload data admin (panggil ulang fungsi lama lu yg nampilin data)
+function reloadAdminData() {
+  if (typeof loadDeposits === 'function') loadDeposits();
+  if (typeof loadWithdraws === 'function') loadWithdraws();
+  if (typeof loadUsers === 'function') loadUsers();
+}
+
+// auto refresh setiap 2 detik
+setInterval(reloadAdminData, 2000);
+
+// dengerin perubahan localStorage dari tab lain
+window.addEventListener('storage', function(e) {
+  if (e.key === 'depositRequests' || e.key === 'withdrawRequests' || e.key === 'userData') {
+    reloadAdminData();
+  }
+});
 });
