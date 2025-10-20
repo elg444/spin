@@ -17,6 +17,7 @@ class AdminDashboard {
         this.setupEventListeners();
         this.loadDashboard();
         this.updateAdminInfo();
+        this.startRealTimeUpdates();
     }
 
     setupEventListeners() {
@@ -28,12 +29,6 @@ class AdminDashboard {
 
         document.getElementById('admin-logout').addEventListener('click', () => {
             this.logout();
-        });
-
-        // Refresh data button
-        document.getElementById('refresh-data')?.addEventListener('click', () => {
-            this.loadDashboard();
-            this.showNotification('Data diperbarui!', 'success');
         });
     }
 
@@ -127,6 +122,9 @@ class AdminDashboard {
     }
 
     loadDepositsTable() {
+        // Create deposits table if not exists
+        this.createDepositsTable();
+        
         const tbody = document.getElementById('deposits-table');
         if (!tbody) return;
 
@@ -153,7 +151,7 @@ class AdminDashboard {
                     <td>${user ? user.username : 'Unknown'}</td>
                     <td>${this.formatCurrency(deposit.amount)}</td>
                     <td>${deposit.bank || '-'}</td>
-                    <td>${deposit.proof || 'No file'}</td>
+                    <td>${deposit.proof ? 'Uploaded' : 'No file'}</td>
                     <td>
                         <span class="status-badge status-${deposit.status}">
                             ${this.getStatusText(deposit.status)}
@@ -162,12 +160,14 @@ class AdminDashboard {
                     <td>${new Date(deposit.createdAt).toLocaleDateString('id-ID')}</td>
                     <td>
                         ${deposit.status === 'pending' ? `
-                            <button class="btn-success btn-sm" onclick="adminDashboard.approveDeposit('${deposit.id}')">
-                                <i class="fas fa-check"></i> Approve
-                            </button>
-                            <button class="btn-danger btn-sm" onclick="adminDashboard.rejectDeposit('${deposit.id}')">
-                                <i class="fas fa-times"></i> Reject
-                            </button>
+                            <div class="action-buttons">
+                                <button class="btn-success btn-sm" onclick="adminDashboard.approveDeposit('${deposit.id}')">
+                                    <i class="fas fa-check"></i> Approve
+                                </button>
+                                <button class="btn-danger btn-sm" onclick="adminDashboard.rejectDeposit('${deposit.id}')">
+                                    <i class="fas fa-times"></i> Reject
+                                </button>
+                            </div>
                         ` : 'Completed'}
                     </td>
                 </tr>
@@ -176,6 +176,9 @@ class AdminDashboard {
     }
 
     loadWithdrawsTable() {
+        // Create withdraws table if not exists
+        this.createWithdrawsTable();
+        
         const tbody = document.getElementById('withdraws-table');
         if (!tbody) return;
 
@@ -211,17 +214,113 @@ class AdminDashboard {
                     <td>${new Date(withdraw.createdAt).toLocaleDateString('id-ID')}</td>
                     <td>
                         ${withdraw.status === 'pending' ? `
-                            <button class="btn-success btn-sm" onclick="adminDashboard.approveWithdraw('${withdraw.id}')">
-                                <i class="fas fa-check"></i> Approve
-                            </button>
-                            <button class="btn-danger btn-sm" onclick="adminDashboard.rejectWithdraw('${withdraw.id}')">
-                                <i class="fas fa-times"></i> Reject
-                            </button>
+                            <div class="action-buttons">
+                                <button class="btn-success btn-sm" onclick="adminDashboard.approveWithdraw('${withdraw.id}')">
+                                    <i class="fas fa-check"></i> Approve
+                                </button>
+                                <button class="btn-danger btn-sm" onclick="adminDashboard.rejectWithdraw('${withdraw.id}')">
+                                    <i class="fas fa-times"></i> Reject
+                                </button>
+                            </div>
                         ` : 'Completed'}
                     </td>
                 </tr>
             `;
         }).join('');
+    }
+
+    createDepositsTable() {
+        const depositsTab = document.getElementById('deposits-tab');
+        if (!depositsTab) return;
+
+        depositsTab.innerHTML = `
+            <div class="admin-section-header">
+                <h2><i class="fas fa-money-bill-wave"></i> Deposit Requests</h2>
+                <p>Kelola semua permintaan deposit user</p>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <h3>Daftar Deposit</h3>
+                    <button class="btn btn-primary btn-sm" onclick="adminDashboard.loadDepositsTable()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Amount</th>
+                                    <th>Bank</th>
+                                    <th>Proof</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deposits-table">
+                                <tr>
+                                    <td colspan="8" style="text-align: center; padding: 20px;">
+                                        <i class="fas fa-money-bill-wave" style="font-size: 3rem; color: var(--primary); margin-bottom: 10px; display: block;"></i>
+                                        <p>Loading deposit requests...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    createWithdrawsTable() {
+        const withdrawsTab = document.getElementById('withdraws-tab');
+        if (!withdrawsTab) return;
+
+        withdrawsTab.innerHTML = `
+            <div class="admin-section-header">
+                <h2><i class="fas fa-wallet"></i> Withdraw Requests</h2>
+                <p>Kelola semua permintaan withdraw user</p>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-header">
+                    <h3>Daftar Withdraw</h3>
+                    <button class="btn btn-primary btn-sm" onclick="adminDashboard.loadWithdrawsTable()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Amount</th>
+                                    <th>Bank</th>
+                                    <th>Account</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="withdraws-table">
+                                <tr>
+                                    <td colspan="8" style="text-align: center; padding: 20px;">
+                                        <i class="fas fa-wallet" style="font-size: 3rem; color: var(--primary); margin-bottom: 10px; display: block;"></i>
+                                        <p>Loading withdraw requests...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
     loadGameSettings() {
@@ -350,6 +449,20 @@ class AdminDashboard {
         this.loadWithdrawsTable();
     }
 
+    startRealTimeUpdates() {
+        // Auto refresh every 3 seconds
+        setInterval(() => {
+            this.loadAllData();
+        }, 3000);
+
+        // Listen for storage changes (from other tabs)
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'menang888_deposits' || e.key === 'menang888_withdraws' || e.key === 'menang888_users') {
+                this.loadAllData();
+            }
+        });
+    }
+
     // UTILITY METHODS
     formatCurrency(amount) {
         return 'Rp ' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -408,10 +521,10 @@ class AdminDashboard {
 
     getNotificationColor(type) {
         const colors = {
-            info: 'linear-gradient(135deg, var(--info-color), #0066cc)',
-            success: 'linear-gradient(135deg, var(--success-color), #00cc66)',
-            warning: 'linear-gradient(135deg, var(--warning-color), #cc8800)',
-            error: 'linear-gradient(135deg, var(--danger-color), #cc0000)'
+            info: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            success: 'linear-gradient(135deg, #06d6a0, #06b6d4)',
+            warning: 'linear-gradient(135deg, #ffd166, #f97316)',
+            error: 'linear-gradient(135deg, #ef476f, #dc2626)'
         };
         return colors[type] || colors.info;
     }
@@ -444,28 +557,5 @@ function saveGameSettings(gameType) {
 
 // Initialize admin dashboard
 document.addEventListener('DOMContentLoaded', () => {
-    window.adminDashboard = new AdminDashboard();// ====== realtime update deposit & withdraw ======
-
-// fungsi buat refresh ulang data di admin panel
-function reloadAdminData() {
-  if (window.adminDashboard) {
-    adminDashboard.loadDepositsTable();
-    adminDashboard.loadWithdrawsTable();
-    adminDashboard.loadUsersTable();
-    adminDashboard.loadDashboardStats();
-  }
-}
-
-// auto refresh setiap 2 detik
-setInterval(reloadAdminData, 2000);
-
-// dengerin perubahan data di localStorage (kalau ada dari tab lain)
-window.addEventListener('storage', function(e) {
-  if (
-    e.key === 'menang888_deposits' ||
-    e.key === 'menang888_withdraws' ||
-    e.key === 'menang888_users'
-  ) {
-    reloadAdminData();
-  }
+    window.adminDashboard = new AdminDashboard();
 });
