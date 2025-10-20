@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Machine - MENANG888</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/loading.css">
+</head>
+<body>
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="neon-loader">
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+            </div>
+            <div class="loading-text">
+                <span class="neon-text">SLOT MACHINE</span>
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-elements">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-dice"></i>
+                    <span>MENANG888</span>
+                </a>
+                <div class="user-info">
+                    <div class="balance">
+                        <i class="fas fa-coins"></i>
+                        <span id="balance">0</span> koin
+                    </div>
+                    <a href="../index.html" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="game-container">
+                <div class="slot-machine">
+                    <div class="slot-reels">
+                        <div class="reel" id="reel1">🍒</div>
+                        <div class="reel" id="reel2">🍋</div>
+                        <div class="reel" id="reel3">🍊</div>
+                    </div>
+                    <button class="btn btn-primary btn-glow spin-btn" id="spin-btn">
+                        <i class="fas fa-redo"></i> SPIN
+                    </button>
+                    <div class="game-result" id="game-result"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/router.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('menang888_current_user'));
+            if (currentUser) {
+                document.getElementById('balance').textContent = currentUser.balance.toLocaleString();
+            }
+
+            const symbols = ['🍒', '🍋', '🍊', '⭐', '🔔', '💎'];
+            const spinBtn = document.getElementById('spin-btn');
+            const reels = [
+                document.getElementById('reel1'),
+                document.getElementById('reel2'),
+                document.getElementById('reel3')
+            ];
+            const resultDisplay = document.getElementById('game-result');
+
+            spinBtn.addEventListener('click', function() {
+                if (!currentUser) {
+                    alert('Silakan login terlebih dahulu!');
+                    return;
+                }
+
+                if (currentUser.balance < 100) {
+                    alert('Saldo tidak cukup! Minimum bet 100 koin.');
+                    return;
+                }
+
+                // Deduct bet
+                currentUser.balance -= 100;
+                document.getElementById('balance').textContent = currentUser.balance.toLocaleString();
+                localStorage.setItem('menang888_current_user', JSON.stringify(currentUser));
+
+                // Spin animation
+                spinBtn.disabled = true;
+                resultDisplay.textContent = '';
+
+                let spins = 0;
+                const maxSpins = 10;
+                const spinInterval = setInterval(() => {
+                    reels.forEach(reel => {
+                        reel.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    });
+                    spins++;
+                    
+                    if (spins >= maxSpins) {
+                        clearInterval(spinInterval);
+                        checkResult();
+                        spinBtn.disabled = false;
+                    }
+                }, 100);
+            });
+
+            function checkResult() {
+                const results = reels.map(reel => reel.textContent);
+                
+                if (results[0] === results[1] && results[1] === results[2]) {
+                    // Jackpot!
+                    const winAmount = 1000;
+                    currentUser.balance += winAmount;
+                    resultDisplay.innerHTML = `
+                        <div style="color: var(--success-color); font-size: 1.5rem; font-weight: bold;">
+                            <i class="fas fa-trophy"></i> JACKPOT! +${winAmount} koin!
+                        </div>
+                    `;
+                } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
+                    // Small win
+                    const winAmount = 200;
+                    currentUser.balance += winAmount;
+                    resultDisplay.innerHTML = `
+                        <div style="color: var(--warning-color); font-size: 1.2rem;">
+                            <i class="fas fa-coins"></i> Menang! +${winAmount} koin
+                        </div>
+                    `;
+                } else {
+                    resultDisplay.innerHTML = `
+                        <div style="color: var(--danger-color);">
+                            <i class="fas fa-times"></i> Coba lagi!
+                        </div>
+                    `;
+                }
+
+                document.getElementById('balance').textContent = currentUser.balance.toLocaleString();
+                localStorage.setItem('menang888_current_user', JSON.stringify(currentUser));
+            }
+        });
+    </script>
+
+    <style>
+        .game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .slot-machine {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: var(--card-glow);
+        }
+
+        .slot-reels {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .reel {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .spin-btn {
+            font-size: 1.5rem;
+            padding: 15px 40px;
+        }
+
+        .game-result {
+            margin-top: 20px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</body>
+</html>
