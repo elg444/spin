@@ -2,10 +2,6 @@ class MENANG888App {
     constructor() {
         this.currentUser = null;
         this.users = JSON.parse(localStorage.getItem('menang888_users')) || [];
-        this.deposits = JSON.parse(localStorage.getItem('menang888_deposits')) || [];
-        this.withdraws = JSON.parse(localStorage.getItem('menang888_withdraws')) || [];
-        this.gameSettings = JSON.parse(localStorage.getItem('menang888_settings')) || {};
-        
         this.init();
     }
 
@@ -15,6 +11,8 @@ class MENANG888App {
         
         if (!this.currentUser) {
             this.showModal('login-modal');
+        } else {
+            this.hideLoading(); // Hide loading immediately if user is logged in
         }
     }
 
@@ -48,6 +46,7 @@ class MENANG888App {
     }
 
     showModal(modalId) {
+        this.hideLoading(); // Ensure loading is hidden when showing modal
         document.getElementById(modalId).classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -63,6 +62,7 @@ class MENANG888App {
             this.currentUser = JSON.parse(savedUser);
             document.getElementById('main-app').style.display = 'block';
             this.updateUserDisplay();
+            this.hideLoading(); // Hide loading immediately
         }
     }
 
@@ -99,6 +99,7 @@ class MENANG888App {
     }
 
     showNotification(message, type = 'info') {
+        // Quick notification without delay
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.style.cssText = `
@@ -107,17 +108,17 @@ class MENANG888App {
             right: 20px;
             background: ${this.getNotificationColor(type)};
             color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 12px 18px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
             z-index: 10000;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            max-width: 300px;
+            animation: slideInRight 0.3s ease;
+            max-width: 280px;
+            font-size: 0.9rem;
         `;
         
         notification.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
                 <i class="${this.getNotificationIcon(type)}"></i>
                 <span>${message}</span>
             </div>
@@ -125,18 +126,15 @@ class MENANG888App {
 
         document.body.appendChild(notification);
 
+        // Auto remove after shorter time
         setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-        }, 100);
-
-        setTimeout(() => {
-            notification.style.transform = 'translateX(400px)';
+            notification.style.animation = 'slideOutRight 0.3s ease';
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.parentNode.removeChild(notification);
                 }
             }, 300);
-        }, 5000);
+        }, 3000);
     }
 
     getNotificationColor(type) {
@@ -160,7 +158,50 @@ class MENANG888App {
     }
 }
 
+// Add quick CSS animations
+const quickStyles = document.createElement('style');
+quickStyles.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes slideIn {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+`;
+document.head.appendChild(quickStyles);
+
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new MENANG888App();
     window.authSystem = new AuthSystem(window.app);
+    
+    // Hide loading after everything is ready
+    setTimeout(() => {
+        window.app.hideLoading();
+    }, 100);
 });
