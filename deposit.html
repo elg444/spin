@@ -594,46 +594,66 @@
         }
 
         function handleDepositSubmit(event) {
-            event.preventDefault();
-            
-            const amount = parseInt(document.getElementById('deposit-amount').value);
-            const bank = document.getElementById('deposit-bank').value;
-            const proof = document.getElementById('deposit-proof').files[0];
+    event.preventDefault();
+    
+    const amount = parseInt(document.getElementById('deposit-amount').value);
+    const bank = document.getElementById('deposit-bank').value;
+    const proof = document.getElementById('deposit-proof').files[0];
 
-            // Validation
-            if (!amount || amount < 10000) {
-                window.app.showNotification('Minimum deposit Rp 10.000!', 'error');
-                return;
-            }
+    // Validation
+    if (!amount || amount < 10000) {
+        window.app.showNotification('Minimum deposit Rp 10.000!', 'error');
+        return;
+    }
 
-            if (!bank) {
-                window.app.showNotification('Pilih bank terlebih dahulu!', 'error');
-                return;
-            }
+    if (!bank) {
+        window.app.showNotification('Pilih bank terlebih dahulu!', 'error');
+        return;
+    }
 
-            if (!proof) {
-                window.app.showNotification('Upload bukti transfer!', 'error');
-                return;
-            }
+    if (!proof) {
+        window.app.showNotification('Upload bukti transfer!', 'error');
+        return;
+    }
 
-            // Calculate bonus
-            const bonus = amount >= 100000 ? Math.floor(amount * 0.10) : 0;
-            const total = amount + bonus;
+    // Calculate bonus
+    const bonus = amount >= 100000 ? Math.floor(amount * 0.10) : 0;
+    const total = amount + bonus;
 
-            // Show success modal
-            document.getElementById('success-amount').textContent = window.app.formatCurrency(amount);
-            document.getElementById('success-bonus').textContent = window.app.formatCurrency(bonus);
-            document.getElementById('success-total').textContent = window.app.formatCurrency(total);
-            document.getElementById('deposit-success-modal').classList.add('active');
+    // Create deposit record
+    const depositData = {
+        id: 'DP' + Date.now(),
+        userId: window.app.currentUser.id,
+        username: window.app.currentUser.username,
+        amount: amount,
+        bank: bank,
+        bonus: bonus,
+        total: total,
+        status: 'pending',
+        createdAt: new Date().toISOString(),
+        approvedAt: null,
+        rejectedAt: null
+    };
 
-            // Log transaction
-            window.app.logSecurityEvent('deposit_request', `User requested deposit: ${amount}`);
+    // Save to localStorage
+    const deposits = JSON.parse(localStorage.getItem('menang888_deposits')) || [];
+    deposits.push(depositData);
+    localStorage.setItem('menang888_deposits', JSON.stringify(deposits));
 
-            // Reset form
-            document.getElementById('deposit-form').reset();
-            document.getElementById('file-preview').innerHTML = '';
-            calculateBonus();
-        }
+    // Show success modal
+    document.getElementById('success-amount').textContent = window.app.formatCurrency(amount);
+    document.getElementById('success-bonus').textContent = window.app.formatCurrency(bonus);
+    document.getElementById('success-total').textContent = window.app.formatCurrency(total);
+    document.getElementById('deposit-success-modal').classList.add('active');
+
+    // Log transaction
+    window.app.logSecurityEvent('deposit_request', `User requested deposit: ${amount}`);
+
+    // Reset form
+    document.getElementById('deposit-form').reset();
+    document.getElementById('file-preview').innerHTML = '';
+    calculateBonus();
+}
 
         function closeSuccessModal() {
             document.getElementById('deposit-success-modal').classList.remove('active');
