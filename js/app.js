@@ -48,6 +48,14 @@ class MENANG888App {
                 this.hideModal(modal.id);
             });
         });
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    this.hideModal(modal.id);
+                }
+            });
+        });
     }
 
     showModal(modalId) {
