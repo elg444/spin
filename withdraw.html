@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw - MENANG888</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loading.css">
+</head>
+<body>
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="neon-loader">
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+            </div>
+            <div class="loading-text">
+                <span class="neon-text">MENANG888</span>
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-elements">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-dice"></i>
+                    <span>MENANG888</span>
+                </a>
+                <div class="user-info">
+                    <div class="balance">
+                        <i class="fas fa-coins"></i>
+                        <span id="balance">0</span> koin
+                    </div>
+                    <a href="index.html" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-section active">
+                <div class="section-header">
+                    <h2>Withdraw Saldo</h2>
+                    <p>Tarik kemenangan Anda dengan mudah</p>
+                </div>
+                
+                <div class="withdraw-form">
+                    <div class="form-group">
+                        <label for="withdraw-amount">Nominal Withdraw</label>
+                        <input type="number" id="withdraw-amount" class="form-control" placeholder="Masukkan nominal withdraw" min="50000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Rekening Tujuan</label>
+                        <div class="bank-info">
+                            <div class="info-item">
+                                <span class="label">No. Rekening:</span>
+                                <span class="value" id="withdraw-account">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Nama Rekening:</span>
+                                <span class="value" id="withdraw-name">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Bank:</span>
+                                <span class="value" id="withdraw-bank">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-glow" id="submit-withdraw">
+                        <i class="fas fa-paper-plane"></i> Kirim Permintaan Withdraw
+                    </button>
+                </div>
+                
+                <div class="withdraw-info">
+                    <h3><i class="fas fa-info-circle"></i> Informasi Withdraw</h3>
+                    <ul>
+                        <li>Minimum withdraw: Rp 50.000</li>
+                        <li>Proses penarikan: 1-2 jam</li>
+                        <li>Pastikan data rekening sudah benar</li>
+                        <li>Biaya admin: Rp 2.500</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/router.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('menang888_current_user'));
+            if (currentUser) {
+                document.getElementById('balance').textContent = currentUser.balance.toLocaleString();
+                document.getElementById('withdraw-account').textContent = currentUser.bankAccount;
+                document.getElementById('withdraw-name').textContent = currentUser.bankName;
+                document.getElementById('withdraw-bank').textContent = 'Bank Central';
+            }
+            
+            document.getElementById('submit-withdraw').addEventListener('click', function() {
+                const amount = parseInt(document.getElementById('withdraw-amount').value);
+                const currentUser = JSON.parse(localStorage.getItem('menang888_current_user'));
+                
+                if (!amount || amount < 50000) {
+                    alert('Minimum withdraw Rp 50.000');
+                    return;
+                }
+                
+                if (!currentUser) {
+                    alert('Silakan login terlebih dahulu');
+                    return;
+                }
+                
+                if (amount > currentUser.balance) {
+                    alert('Saldo tidak mencukupi');
+                    return;
+                }
+                
+                alert('Permintaan withdraw berhasil dikirim! Menunggu verifikasi admin.');
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
