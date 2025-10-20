@@ -6,134 +6,1095 @@
     <title>Withdraw - MENANG888</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
-<body>
+<body class="dark-theme">
+    <!-- Security Check -->
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('menang888_current_user'));
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+    </script>
+
+    <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <div class="neon-loader">
-                <div class="loader-circle"></div>
-                <div class="loader-circle"></div>
-                <div class="loader-circle"></div>
+        <div class="loading-container">
+            <div class="neon-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h1>WITHDRAW</h1>
             </div>
-            <div class="loading-text">
-                <span class="neon-text">MENANG888</span>
-                <p>Loading...</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
             </div>
+            <p>Menyiapkan halaman withdraw...</p>
         </div>
     </div>
 
-    <div class="bg-elements">
-        <div class="bg-circle circle-1"></div>
-        <div class="bg-circle circle-2"></div>
-        <div class="bg-circle circle-3"></div>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="stars"></div>
+        <div class="particles"></div>
+        <div class="gradient-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
     </div>
 
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-dice"></i>
-                    <span>MENANG888</span>
-                </a>
-                <div class="user-info">
-                    <div class="balance">
-                        <i class="fas fa-coins"></i>
-                        <span id="balance">0</span> koin
+    <!-- Main App -->
+    <div id="main-app" class="main-app">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo-section">
+                        <a href="index.html" class="logo">
+                            <i class="fas fa-dice"></i>
+                            <span>MENANG888</span>
+                        </a>
+                        <div class="online-status">
+                            <div class="status-dot"></div>
+                            <span>Online</span>
+                        </div>
                     </div>
-                    <a href="index.html" class="btn btn-secondary btn-sm">
-                        <i class="fas fa-arrow-left"></i> Kembali
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="content-section active">
-                <div class="section-header">
-                    <h2>Withdraw Saldo</h2>
-                    <p>Tarik kemenangan Anda dengan mudah</p>
-                </div>
-                
-                <div class="withdraw-form">
-                    <div class="form-group">
-                        <label for="withdraw-amount">Nominal Withdraw</label>
-                        <input type="number" id="withdraw-amount" class="form-control" placeholder="Masukkan nominal withdraw" min="50000">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Rekening Tujuan</label>
-                        <div class="bank-info">
-                            <div class="info-item">
-                                <span class="label">No. Rekening:</span>
-                                <span class="value" id="withdraw-account">-</span>
+                    <div class="user-section">
+                        <div class="user-wallet">
+                            <div class="balance-card">
+                                <i class="fas fa-wallet"></i>
+                                <div class="balance-info">
+                                    <span class="balance-amount" id="balance-amount">0</span>
+                                    <span class="balance-label">Saldo Tersedia</span>
+                                </div>
                             </div>
-                            <div class="info-item">
-                                <span class="label">Nama Rekening:</span>
-                                <span class="value" id="withdraw-name">-</span>
+                            <a href="deposit.html" class="btn-quick-deposit">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+
+                        <div class="user-profile">
+                            <div class="profile-avatar" id="user-avatar">
+                                <i class="fas fa-user"></i>
                             </div>
-                            <div class="info-item">
-                                <span class="label">Bank:</span>
-                                <span class="value" id="withdraw-bank">-</span>
+                            <div class="profile-info">
+                                <span class="username" id="username-display">Guest</span>
+                                <span class="user-id" id="user-id-display">ID: -</span>
+                            </div>
+                            <div class="profile-dropdown">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a href="profile.html" class="dropdown-item">
+                                        <i class="fas fa-user-cog"></i> Profile
+                                    </a>
+                                    <a href="deposit.html" class="dropdown-item">
+                                        <i class="fas fa-money-bill-wave"></i> Deposit
+                                    </a>
+                                    <a href="withdraw.html" class="dropdown-item active">
+                                        <i class="fas fa-wallet"></i> Withdraw
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item logout-btn" onclick="app.logout()">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <button class="btn btn-primary btn-glow" id="submit-withdraw">
-                        <i class="fas fa-paper-plane"></i> Kirim Permintaan Withdraw
-                    </button>
-                </div>
-                
-                <div class="withdraw-info">
-                    <h3><i class="fas fa-info-circle"></i> Informasi Withdraw</h3>
-                    <ul>
-                        <li>Minimum withdraw: Rp 50.000</li>
-                        <li>Proses penarikan: 1-2 jam</li>
-                        <li>Pastikan data rekening sudah benar</li>
-                        <li>Biaya admin: Rp 2.500</li>
-                    </ul>
                 </div>
             </div>
-        </div>
-    </main>
+        </header>
 
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="nav-links">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Beranda</span>
+                        </a>
+                        <a href="games.html" class="nav-link">
+                            <i class="fas fa-gamepad"></i>
+                            <span>Permainan</span>
+                        </a>
+                        <a href="promo.html" class="nav-link">
+                            <i class="fas fa-gift"></i>
+                            <span>Promo</span>
+                        </a>
+                        <a href="info.html" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Info</span>
+                        </a>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <button class="btn-support" onclick="openSupport()">
+                            <i class="fas fa-headset"></i>
+                            Support
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Withdraw Header -->
+                <section class="withdraw-header">
+                    <div class="header-content">
+                        <h1>Tarik Saldo</h1>
+                        <p>Tarik kemenangan Anda dengan mudah dan cepat</p>
+                        <div class="withdraw-stats">
+                            <div class="stat">
+                                <i class="fas fa-bolt"></i>
+                                <div>
+                                    <span class="value">1-10 Menit</span>
+                                    <span class="label">Proses Cepat</span>
+                                </div>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <span class="value">100% Aman</span>
+                                    <span class="label">Data Terlindungi</span>
+                                </div>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <span class="value">No Fee</span>
+                                    <span class="label">Tanpa Biaya</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Withdraw Form Section -->
+                <section class="withdraw-form-section">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h3>Form Withdraw</h3>
+                            <div class="user-bank-info">
+                                <div class="bank-card">
+                                    <div class="bank-icon">
+                                        <i class="fas fa-university"></i>
+                                    </div>
+                                    <div class="bank-details">
+                                        <h4 id="user-bank-name">-</h4>
+                                        <p id="user-bank-account">-</p>
+                                        <span id="user-bank-holder">-</span>
+                                    </div>
+                                    <button class="btn-change-bank" onclick="changeBankInfo()">
+                                        <i class="fas fa-edit"></i> Ubah
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form class="withdraw-form" id="withdraw-form">
+                            <div class="form-group">
+                                <label for="withdraw-amount">Jumlah Withdraw</label>
+                                <div class="amount-input">
+                                    <span class="currency">Rp</span>
+                                    <input type="number" id="withdraw-amount" placeholder="0" min="50000" step="1000" required>
+                                </div>
+                                <div class="amount-presets">
+                                    <button type="button" class="amount-btn" data-amount="50000">50K</button>
+                                    <button type="button" class="amount-btn" data-amount="100000">100K</button>
+                                    <button type="button" class="amount-btn" data-amount="500000">500K</button>
+                                    <button type="button" class="amount-btn" data-amount="1000000">1JT</button>
+                                    <button type="button" class="amount-btn" data-amount="5000000">5JT</button>
+                                </div>
+                                <div class="balance-info">
+                                    <span>Saldo Tersedia: <strong id="available-balance">Rp 0</strong></span>
+                                    <button type="button" class="btn-max" onclick="setMaxAmount()">MAX</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="withdraw-pin">PIN Withdraw</label>
+                                <input type="password" id="withdraw-pin" placeholder="Masukkan PIN withdraw" maxlength="6" required>
+                                <div class="pin-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>PIN default: 123456 (ubah di halaman profile)</span>
+                                </div>
+                            </div>
+
+                            <div class="withdraw-info">
+                                <h4><i class="fas fa-info-circle"></i> Informasi Withdraw</h4>
+                                <ul>
+                                    <li>Minimum withdraw: <strong>Rp 50.000</strong></li>
+                                    <li>Maksimum withdraw: <strong>Rp 50.000.000</strong></li>
+                                    <li>Proses: <strong>1-10 menit</strong> (kerja bank)</li>
+                                    <li>Biaya: <strong>Gratis</strong> tanpa potongan</li>
+                                </ul>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" onclick="history.back()">
+                                    <i class="fas fa-arrow-left"></i> Kembali
+                                </button>
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-paper-plane"></i> Kirim Withdraw
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Withdraw History -->
+                    <div class="withdraw-history">
+                        <h3>Riwayat Withdraw</h3>
+                        <div class="history-list" id="withdraw-history">
+                            <!-- History items will be populated here -->
+                        </div>
+                        <div class="history-empty" id="history-empty">
+                            <i class="fas fa-history"></i>
+                            <p>Belum ada riwayat withdraw</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <i class="fas fa-dice"></i>
+                            <span>MENANG888</span>
+                        </div>
+                        <p>Platform game online terpercaya dengan pembayaran instan dan layanan 24/7.</p>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Bantuan</h4>
+                        <a href="info.html">Cara Deposit</a>
+                        <a href="info.html">Cara Withdraw</a>
+                        <a href="info.html">Syarat & Ketentuan</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Keamanan</h4>
+                        <div class="security-badges">
+                            <div class="badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Data Terlindungi</span>
+                            </div>
+                            <div class="badge">
+                                <i class="fas fa-lock"></i>
+                                <span>SSL Secure</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>&copy; 2024 MENANG888. All rights reserved. | 18+ Only</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Change Bank Modal -->
+    <div class="modal bank-modal" id="change-bank-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Ubah Informasi Bank</h2>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="bank-form" id="bank-form">
+                    <div class="form-group">
+                        <label for="new-bank">Pilih Bank</label>
+                        <select id="new-bank" class="form-control" required>
+                            <option value="">-- Pilih Bank --</option>
+                            <option value="bca">BCA</option>
+                            <option value="bni">BNI</option>
+                            <option value="bri">BRI</option>
+                            <option value="mandiri">Mandiri</option>
+                            <option value="cimb">CIMB</option>
+                            <option value="danamon">Danamon</option>
+                            <option value="permata">Permata</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-account">Nomor Rekening</label>
+                        <input type="text" id="new-account" placeholder="Masukkan nomor rekening" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-holder">Nama Pemilik Rekening</label>
+                        <input type="text" id="new-holder" placeholder="Nama sesuai rekening" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeBankModal()">
+                            Batal
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            Simpan Perubahan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Success Modal -->
+    <div class="modal success-modal" id="withdraw-success-modal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Withdraw Berhasil Dikirim!</h2>
+            <p>Permintaan withdraw Anda telah dikirim dan sedang diproses. Dana akan masuk dalam 1-10 menit.</p>
+            <div class="withdraw-details">
+                <div class="detail-item">
+                    <span>Jumlah Withdraw:</span>
+                    <strong id="success-amount">Rp 0</strong>
+                </div>
+                <div class="detail-item">
+                    <span>Rekening Tujuan:</span>
+                    <strong id="success-bank">-</strong>
+                </div>
+                <div class="detail-item">
+                    <span>No. Rekening:</span>
+                    <strong id="success-account">-</strong>
+                </div>
+                <div class="detail-item">
+                    <span>Estimasi:</span>
+                    <strong>1-10 menit</strong>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-primary" onclick="closeSuccessModal()">
+                    <i class="fas fa-check"></i> Oke
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
     <script src="js/app.js"></script>
+    <script src="js/security.js"></script>
     <script src="js/router.js"></script>
+
     <script>
+        // Initialize withdraw page
         document.addEventListener('DOMContentLoaded', function() {
-            const currentUser = JSON.parse(localStorage.getItem('menang888_current_user'));
-            if (currentUser) {
-                document.getElementById('balance').textContent = currentUser.balance.toLocaleString();
-                document.getElementById('withdraw-account').textContent = currentUser.bankAccount;
-                document.getElementById('withdraw-name').textContent = currentUser.bankName;
-                document.getElementById('withdraw-bank').textContent = 'Bank Central';
+            // Update user info
+            if (window.app && window.app.currentUser) {
+                document.getElementById('balance-amount').textContent = window.app.formatCurrency(window.app.currentUser.balance);
+                document.getElementById('available-balance').textContent = window.app.formatCurrency(window.app.currentUser.balance);
+                document.getElementById('username-display').textContent = window.app.currentUser.username;
+                document.getElementById('user-id-display').textContent = `ID: ${window.app.currentUser.id}`;
+                
+                // Update bank info
+                updateBankInfo();
+                
+                // Update avatar color
+                const avatar = document.getElementById('user-avatar');
+                const colors = ['#6366f1', '#06d6a0', '#ff6b6b', '#ffd166'];
+                const colorIndex = window.app.currentUser.username.length % colors.length;
+                avatar.style.background = `linear-gradient(135deg, ${colors[colorIndex]}, ${colors[(colorIndex + 1) % colors.length]})`;
+            }
+
+            initializeWithdrawPage();
+            loadWithdrawHistory();
+        });
+
+        function initializeWithdrawPage() {
+            // Amount presets
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const amount = this.dataset.amount;
+                    document.getElementById('withdraw-amount').value = amount;
+                });
+            });
+
+            // Form submission
+            document.getElementById('withdraw-form').addEventListener('submit', handleWithdrawSubmit);
+
+            // Bank form submission
+            document.getElementById('bank-form').addEventListener('submit', handleBankChange);
+
+            // Modal close events
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    modal.classList.remove('active');
+                });
+            });
+
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        function updateBankInfo() {
+            const user = window.app.currentUser;
+            if (user && user.bankName && user.bankAccount) {
+                document.getElementById('user-bank-name').textContent = user.bankName.toUpperCase();
+                document.getElementById('user-bank-account').textContent = user.bankAccount;
+                document.getElementById('user-bank-holder').textContent = user.username;
+            }
+        }
+
+        function changeBankInfo() {
+            const user = window.app.currentUser;
+            if (user) {
+                document.getElementById('new-bank').value = user.bankName || '';
+                document.getElementById('new-account').value = user.bankAccount || '';
+                document.getElementById('new-holder').value = user.username || '';
+            }
+            document.getElementById('change-bank-modal').classList.add('active');
+        }
+
+        function closeBankModal() {
+            document.getElementById('change-bank-modal').classList.remove('active');
+        }
+
+        function handleBankChange(event) {
+            event.preventDefault();
+            
+            const bank = document.getElementById('new-bank').value;
+            const account = document.getElementById('new-account').value;
+            const holder = document.getElementById('new-holder').value;
+
+            if (!bank || !account || !holder) {
+                window.app.showNotification('Semua field harus diisi!', 'error');
+                return;
+            }
+
+            // Update user data
+            window.app.currentUser.bankName = bank;
+            window.app.currentUser.bankAccount = account;
+            
+            // Save to localStorage
+            localStorage.setItem('menang888_current_user', JSON.stringify(window.app.currentUser));
+            
+            // Update user in users array
+            const userIndex = window.app.users.findIndex(u => u.id === window.app.currentUser.id);
+            if (userIndex !== -1) {
+                window.app.users[userIndex] = window.app.currentUser;
+                window.app.saveUsers();
+            }
+
+            // Update display
+            updateBankInfo();
+            closeBankModal();
+            
+            window.app.showNotification('Informasi bank berhasil diupdate!', 'success');
+        }
+
+        function setMaxAmount() {
+            const maxAmount = window.app.currentUser.balance;
+            document.getElementById('withdraw-amount').value = maxAmount;
+        }
+
+        function handleWithdrawSubmit(event) {
+            event.preventDefault();
+            
+            const amount = parseInt(document.getElementById('withdraw-amount').value);
+            const pin = document.getElementById('withdraw-pin').value;
+            const user = window.app.currentUser;
+
+            // Validation
+            if (!amount || amount < 50000) {
+                window.app.showNotification('Minimum withdraw Rp 50.000!', 'error');
+                return;
+            }
+
+            if (amount > 50000000) {
+                window.app.showNotification('Maksimum withdraw Rp 50.000.000!', 'error');
+                return;
+            }
+
+            if (amount > user.balance) {
+                window.app.showNotification('Saldo tidak mencukupi!', 'error');
+                return;
+            }
+
+            if (!pin || pin !== '123456') { // Default PIN, in real app this should be hashed
+                window.app.showNotification('PIN withdraw salah!', 'error');
+                return;
+            }
+
+            if (!user.bankName || !user.bankAccount) {
+                window.app.showNotification('Silakan lengkapi informasi bank terlebih dahulu!', 'error');
+                changeBankInfo();
+                return;
+            }
+
+            // Process withdraw
+            processWithdraw(amount);
+        }
+
+        function processWithdraw(amount) {
+            const user = window.app.currentUser;
+
+            // Create withdraw transaction
+            const transaction = {
+                id: 'WD' + Date.now(),
+                userId: user.id,
+                amount: amount,
+                bankName: user.bankName,
+                bankAccount: user.bankAccount,
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                processedAt: null
+            };
+
+            // Save transaction
+            const transactions = JSON.parse(localStorage.getItem('menang888_withdraws')) || [];
+            transactions.push(transaction);
+            localStorage.setItem('menang888_withdraws', JSON.stringify(transactions));
+
+            // Deduct balance (will be reversed if rejected)
+            user.balance -= amount;
+            localStorage.setItem('menang888_current_user', JSON.stringify(user));
+
+            // Update user in users array
+            const userIndex = window.app.users.findIndex(u => u.id === user.id);
+            if (userIndex !== -1) {
+                window.app.users[userIndex] = user;
+                window.app.saveUsers();
+            }
+
+            // Show success modal
+            document.getElementById('success-amount').textContent = window.app.formatCurrency(amount);
+            document.getElementById('success-bank').textContent = user.bankName.toUpperCase();
+            document.getElementById('success-account').textContent = user.bankAccount;
+            document.getElementById('withdraw-success-modal').classList.add('active');
+
+            // Log security event
+            window.app.logSecurityEvent('withdraw_request', `User requested withdraw: ${amount}`);
+
+            // Reset form and update display
+            document.getElementById('withdraw-form').reset();
+            document.getElementById('balance-amount').textContent = window.app.formatCurrency(user.balance);
+            document.getElementById('available-balance').textContent = window.app.formatCurrency(user.balance);
+
+            // Reload history
+            loadWithdrawHistory();
+        }
+
+        function loadWithdrawHistory() {
+            const transactions = JSON.parse(localStorage.getItem('menang888_withdraws')) || [];
+            const userTransactions = transactions.filter(t => t.userId === window.app.currentUser.id);
+            const historyList = document.getElementById('withdraw-history');
+            const emptyState = document.getElementById('history-empty');
+
+            if (userTransactions.length === 0) {
+                historyList.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            historyList.style.display = 'block';
+            emptyState.style.display = 'none';
+
+            // Show last 5 transactions
+            const recentTransactions = userTransactions.slice(-5).reverse();
+            
+            historyList.innerHTML = recentTransactions.map(transaction => `
+                <div class="history-item ${transaction.status}">
+                    <div class="transaction-info">
+                        <div class="transaction-amount">
+                            <strong>${window.app.formatCurrency(transaction.amount)}</strong>
+                            <span class="transaction-date">${new Date(transaction.createdAt).toLocaleDateString('id-ID')}</span>
+                        </div>
+                        <div class="transaction-details">
+                            <span>${transaction.bankName} - ${transaction.bankAccount}</span>
+                            <span class="transaction-status ${transaction.status}">
+                                ${transaction.status === 'pending' ? 'Diproses' : 
+                                  transaction.status === 'completed' ? 'Selesai' : 'Ditolak'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('withdraw-success-modal').classList.remove('active');
+        }
+
+        function openSupport() {
+            alert('Customer Service: 24/7 WhatsApp: 0812-3456-7890');
+        }
+    </script>
+
+    <style>
+        /* Withdraw Page Specific Styles */
+        .withdraw-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+        }
+
+        .withdraw-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .withdraw-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .withdraw-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .withdraw-stats .stat {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius);
+            min-width: 180px;
+        }
+
+        .withdraw-stats .stat i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .withdraw-stats .value {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .withdraw-stats .label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Withdraw Form Section */
+        .withdraw-form-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .form-container {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+        }
+
+        .form-header {
+            padding: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: var(--bg-elevated);
+        }
+
+        .form-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .user-bank-info {
+            margin-top: 15px;
+        }
+
+        .bank-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .bank-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .bank-details {
+            flex: 1;
+        }
+
+        .bank-details h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .bank-details p {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: var(--text-primary);
+        }
+
+        .bank-details span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-change-bank {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-change-bank:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-1px);
+        }
+
+        .withdraw-form {
+            padding: 25px;
+        }
+
+        .amount-input {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .currency {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .amount-input input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+        }
+
+        .amount-presets {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .amount-btn {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .amount-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-primary);
+        }
+
+        .balance-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            color: var(--text-secondary);
+        }
+
+        .btn-max {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: var(--border-radius);
+            color: var(--primary);
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-max:hover {
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .pin-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .pin-info i {
+            color: var(--warning);
+        }
+
+        .withdraw-info {
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .withdraw-info h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .withdraw-info ul {
+            list-style: none;
+        }
+
+        .withdraw-info li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .withdraw-info li:last-child {
+            border-bottom: none;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-actions .btn-primary,
+        .form-actions .btn-secondary {
+            flex: 1;
+        }
+
+        /* Withdraw History */
+        .withdraw-history {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius-lg);
+            padding: 25px;
+            height: fit-content;
+        }
+
+        .withdraw-history h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .history-list {
+            display: none;
+        }
+
+        .history-item {
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            border-left: 4px solid var(--warning);
+        }
+
+        .history-item.completed {
+            border-left-color: var(--success);
+        }
+
+        .history-item.rejected {
+            border-left-color: var(--danger);
+        }
+
+        .transaction-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .transaction-amount strong {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .transaction-date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .transaction-details {
+            text-align: right;
+        }
+
+        .transaction-details span {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .transaction-status {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .transaction-status.pending {
+            background: rgba(255, 209, 102, 0.2);
+            color: var(--warning);
+        }
+
+        .transaction-status.completed {
+            background: rgba(6, 214, 160, 0.2);
+            color: var(--success);
+        }
+
+        .transaction-status.rejected {
+            background: rgba(239, 71, 111, 0.2);
+            color: var(--danger);
+        }
+
+        .history-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .history-empty i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+        }
+
+        /* Bank Modal */
+        .bank-modal .modal-content {
+            max-width: 500px;
+        }
+
+        .bank-form {
+            padding: 0;
+        }
+
+        /* Success Modal */
+        .success-modal .modal-content {
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+
+        .success-modal h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .success-modal p {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .withdraw-details {
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .withdraw-stats {
+                flex-direction: column;
+                gap: 15px;
             }
             
-            document.getElementById('submit-withdraw').addEventListener('click', function() {
-                const amount = parseInt(document.getElementById('withdraw-amount').value);
-                const currentUser = JSON.parse(localStorage.getItem('menang888_current_user'));
-                
-                if (!amount || amount < 50000) {
-                    alert('Minimum withdraw Rp 50.000');
-                    return;
-                }
-                
-                if (!currentUser) {
-                    alert('Silakan login terlebih dahulu');
-                    return;
-                }
-                
-                if (amount > currentUser.balance) {
-                    alert('Saldo tidak mencukupi');
-                    return;
-                }
-                
-                alert('Permintaan withdraw berhasil dikirim! Menunggu verifikasi admin.');
-                window.location.href = 'index.html';
-            });
-        });
-    </script>
+            .withdraw-form-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .transaction-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .transaction-details {
+                text-align: left;
+            }
+        }
+    </style>
 </body>
 </html>
