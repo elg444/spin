@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit - MENANG888</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loading.css">
+</head>
+<body>
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="neon-loader">
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+            </div>
+            <div class="loading-text">
+                <span class="neon-text">MENANG888</span>
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-elements">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-dice"></i>
+                    <span>MENANG888</span>
+                </a>
+                <div class="user-info">
+                    <div class="balance">
+                        <i class="fas fa-coins"></i>
+                        <span id="balance">0</span> koin
+                    </div>
+                    <a href="index.html" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-section active">
+                <div class="section-header">
+                    <h2>Deposit Saldo</h2>
+                    <p>Isi saldo Anda untuk mulai bermain</p>
+                </div>
+                
+                <div class="deposit-form">
+                    <div class="form-group">
+                        <label for="deposit-amount">Nominal Deposit</label>
+                        <input type="number" id="deposit-amount" class="form-control" placeholder="Masukkan nominal deposit" min="10000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="deposit-bank">Pilih Bank</label>
+                        <select id="deposit-bank" class="form-control">
+                            <option value="">-- Pilih Bank --</option>
+                            <option value="bca">BCA - 1234567890</option>
+                            <option value="bni">BNI - 0987654321</option>
+                            <option value="bri">BRI - 1122334455</option>
+                            <option value="mandiri">Mandiri - 5566778899</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="deposit-proof">Upload Bukti Transfer</label>
+                        <input type="file" id="deposit-proof" class="form-control" accept="image/*,.pdf">
+                    </div>
+                    
+                    <button class="btn btn-primary btn-glow" id="submit-deposit">
+                        <i class="fas fa-paper-plane"></i> Kirim Permintaan Deposit
+                    </button>
+                </div>
+                
+                <div class="deposit-info">
+                    <h3><i class="fas fa-info-circle"></i> Informasi Deposit</h3>
+                    <ul>
+                        <li>Minimum deposit: Rp 10.000</li>
+                        <li>Proses verifikasi: 1-5 menit</li>
+                        <li>Pastikan bukti transfer jelas terbaca</li>
+                        <li>Saldo akan langsung ditambahkan setelah approved</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/router.js"></script>
+    <script>
+        document.getElementById('submit-deposit').addEventListener('click', function() {
+            const amount = document.getElementById('deposit-amount').value;
+            const bank = document.getElementById('deposit-bank').value;
+            const proof = document.getElementById('deposit-proof').files[0];
+            
+            if (!amount || amount < 10000) {
+                alert('Minimum deposit Rp 10.000');
+                return;
+            }
+            
+            if (!bank) {
+                alert('Pilih bank terlebih dahulu');
+                return;
+            }
+            
+            if (!proof) {
+                alert('Upload bukti transfer');
+                return;
+            }
+            
+            alert('Permintaan deposit berhasil dikirim! Menunggu verifikasi admin.');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
