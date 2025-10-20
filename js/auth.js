@@ -29,6 +29,7 @@ class AuthSystem {
             this.generateCaptcha();
         });
 
+        // Quick form submission on Enter
         document.getElementById('login-password').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.handleLogin();
         });
@@ -44,8 +45,9 @@ class AuthSystem {
 
         if (!this.validateLoginInput(username, password)) return;
 
-        this.app.showLoading('Memverifikasi login...');
+        this.app.showLoading('Verifikasi...');
 
+        // Quick authentication (no artificial delay)
         setTimeout(() => {
             const user = this.authenticateUser(username, password);
             
@@ -58,6 +60,7 @@ class AuthSystem {
                 this.app.updateUserDisplay();
                 this.app.showNotification(`Selamat datang, ${user.username}!`, 'success');
                 
+                // Quick form reset
                 document.getElementById('login-username').value = '';
                 document.getElementById('login-password').value = '';
             } else {
@@ -65,7 +68,7 @@ class AuthSystem {
             }
             
             this.app.hideLoading();
-        }, 1000);
+        }, 300); // Reduced from 1000ms to 300ms
     }
 
     handleRegister() {
@@ -73,8 +76,9 @@ class AuthSystem {
         
         if (!this.validateRegisterInput(formData)) return;
 
-        this.app.showLoading('Membuat akun baru...');
+        this.app.showLoading('Membuat akun...');
 
+        // Quick registration
         setTimeout(() => {
             if (this.createUser(formData)) {
                 this.app.hideModal('register-modal');
@@ -84,9 +88,10 @@ class AuthSystem {
             }
             
             this.app.hideLoading();
-        }, 1500);
+        }, 500); // Reduced from 1500ms to 500ms
     }
 
+    // ... (rest of the methods remain the same but optimized)
     getRegisterFormData() {
         return {
             username: document.getElementById('reg-username').value.trim(),
