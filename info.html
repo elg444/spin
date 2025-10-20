@@ -3,222 +3,1061 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Info Kami - MENANG888</title>
+    <title>Info & Bantuan - MENANG888</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
-<body>
+<body class="dark-theme">
+    <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <div class="neon-loader">
-                <div class="loader-circle"></div>
-                <div class="loader-circle"></div>
-                <div class="loader-circle"></div>
+        <div class="loading-container">
+            <div class="neon-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <h1>INFO</h1>
             </div>
-            <div class="loading-text">
-                <span class="neon-text">MENANG888</span>
-                <p>Loading...</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
             </div>
+            <p>Memuat informasi...</p>
         </div>
     </div>
 
-    <div class="bg-elements">
-        <div class="bg-circle circle-1"></div>
-        <div class="bg-circle circle-2"></div>
-        <div class="bg-circle circle-3"></div>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="stars"></div>
+        <div class="particles"></div>
+        <div class="gradient-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
     </div>
 
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-dice"></i>
-                    <span>MENANG888</span>
-                </a>
-                <div class="user-info">
-                    <a href="index.html" class="btn btn-secondary btn-sm">
-                        <i class="fas fa-arrow-left"></i> Kembali
-                    </a>
+    <!-- Main App -->
+    <div id="main-app" class="main-app">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo-section">
+                        <a href="index.html" class="logo">
+                            <i class="fas fa-dice"></i>
+                            <span>MENANG888</span>
+                        </a>
+                        <div class="online-status">
+                            <div class="status-dot"></div>
+                            <span>Online</span>
+                        </div>
+                    </div>
+
+                    <div class="user-section">
+                        <div class="user-wallet">
+                            <div class="balance-card">
+                                <i class="fas fa-wallet"></i>
+                                <div class="balance-info">
+                                    <span class="balance-amount" id="balance-amount">0</span>
+                                    <span class="balance-label">Saldo Tersedia</span>
+                                </div>
+                            </div>
+                            <a href="deposit.html" class="btn-quick-deposit">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+
+                        <div class="user-profile">
+                            <div class="profile-avatar" id="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <span class="username" id="username-display">Guest</span>
+                                <span class="user-id" id="user-id-display">ID: -</span>
+                            </div>
+                            <div class="profile-dropdown">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a href="profile.html" class="dropdown-item">
+                                        <i class="fas fa-user-cog"></i> Profile
+                                    </a>
+                                    <a href="deposit.html" class="dropdown-item">
+                                        <i class="fas fa-money-bill-wave"></i> Deposit
+                                    </a>
+                                    <a href="withdraw.html" class="dropdown-item">
+                                        <i class="fas fa-wallet"></i> Withdraw
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item logout-btn" onclick="app.logout()">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="content-section active">
-                <div class="section-header">
-                    <h2>Info Kami</h2>
-                    <p>Hubungi kami melalui media sosial berikut</p>
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="nav-links">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Beranda</span>
+                        </a>
+                        <a href="games.html" class="nav-link">
+                            <i class="fas fa-gamepad"></i>
+                            <span>Permainan</span>
+                        </a>
+                        <a href="promo.html" class="nav-link">
+                            <i class="fas fa-gift"></i>
+                            <span>Promo</span>
+                        </a>
+                        <a href="info.html" class="nav-link active">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Info</span>
+                        </a>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <button class="btn-support" onclick="openSupport()">
+                            <i class="fas fa-headset"></i>
+                            Support
+                        </button>
+                    </div>
                 </div>
-                
-                <div class="info-content">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <div class="contact-icon">
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Info Header -->
+                <section class="info-header">
+                    <div class="header-content">
+                        <h1>Info & Bantuan</h1>
+                        <p>Semua yang perlu Anda ketahui tentang MENANG888</p>
+                        <div class="info-stats">
+                            <div class="stat">
                                 <i class="fas fa-clock"></i>
+                                <div>
+                                    <span class="value">24/7</span>
+                                    <span class="label">Customer Service</span>
+                                </div>
                             </div>
-                            <div class="contact-details">
-                                <h3>Jam Operasional</h3>
-                                <p>24 Jam / 7 Hari</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-headset"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Customer Service</h3>
-                                <p>Fast Response 5 Menit</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
+                            <div class="stat">
                                 <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <span class="value">100% Aman</span>
+                                    <span class="label">Data Terlindungi</span>
+                                </div>
                             </div>
-                            <div class="contact-details">
-                                <h3>Keamanan</h3>
-                                <p>Data Terlindungi & Aman</p>
+                            <div class="stat">
+                                <i class="fas fa-bolt"></i>
+                                <div>
+                                    <span class="value">Instant</span>
+                                    <span class="label">Proses Cepat</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Help -->
+                <section class="quick-help">
+                    <h2>Bantuan Cepat</h2>
+                    <div class="help-grid">
+                        <div class="help-card" onclick="showFAQ('deposit')">
+                            <div class="help-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <h3>Cara Deposit</h3>
+                            <p>Panduan lengkap melakukan deposit</p>
+                        </div>
+
+                        <div class="help-card" onclick="showFAQ('withdraw')">
+                            <div class="help-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <h3>Cara Withdraw</h3>
+                            <p>Tarik dana dengan mudah dan cepat</p>
+                        </div>
+
+                        <div class="help-card" onclick="showFAQ('register')">
+                            <div class="help-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <h3>Cara Daftar</h3>
+                            <p>Bergabung menjadi member</p>
+                        </div>
+
+                        <div class="help-card" onclick="showFAQ('bonus')">
+                            <div class="help-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <h3>Klaim Bonus</h3>
+                            <p>Cara klaim promo dan bonus</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ Section -->
+                <section class="faq-section">
+                    <h2>Pertanyaan Umum</h2>
+                    <div class="faq-categories">
+                        <button class="category-btn active" data-category="general">Umum</button>
+                        <button class="category-btn" data-category="deposit">Deposit</button>
+                        <button class="category-btn" data-category="withdraw">Withdraw</button>
+                        <button class="category-btn" data-category="bonus">Bonus</button>
+                        <button class="category-btn" data-category="security">Keamanan</button>
+                    </div>
+
+                    <div class="faq-list">
+                        <!-- General FAQ -->
+                        <div class="faq-category active" id="general-faq">
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3>Apa itu MENANG888?</h3>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>MENANG888 adalah platform game online terpercaya yang menyediakan berbagai permainan seru seperti slot, live casino, sportsbook, dan poker. Kami berkomitmen memberikan pengalaman bermain yang aman, adil, dan menghibur.</p>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3>Apakah MENANG888 legal?</h3>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Ya, MENANG888 beroperasi secara legal dengan lisensi internasional. Kami mematuhi semua regulasi dan standar industri untuk memastikan keamanan dan keadilan permainan.</p>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3>Bagaimana cara mendaftar?</h3>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Klik tombol "Daftar" di halaman utama, isi formulir pendaftaran dengan data yang valid, verifikasi akun Anda, dan mulailah bermain. Proses pendaftaran hanya membutuhkan waktu 2-3 menit.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Deposit FAQ -->
+                        <div class="faq-category" id="deposit-faq">
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3>Metode deposit apa yang tersedia?</h3>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Kami menyediakan berbagai metode deposit: Transfer Bank (BCA, BNI, BRI, Mandiri), E-Wallet (OVO, GoPay, Dana), QRIS, dan Crypto (Bitcoin, Ethereum, USDT).</p>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3>Berapa lama proses deposit?</h3>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Deposit diproses secara instan (1-5 menit) setelah bukti transfer diverifikasi. Untuk deposit di luar jam operasional bank, proses mungkin membutuhkan waktu lebih lama.</p>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3>Apakah ada biaya deposit?</h3>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Tidak ada biaya deposit dari kami. Namun, bank atau penyedia pembayaran mungkin mengenakan biaya transfer sesuai kebijakan mereka.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add more FAQ categories as needed -->
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section class="contact-section">
+                    <div class="contact-grid">
+                        <div class="contact-info">
+                            <h2>Hubungi Kami</h2>
+                            <p>Tim support kami siap membantu 24/7</p>
+                            
+                            <div class="contact-methods">
+                                <div class="contact-method">
+                                    <div class="method-icon">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div class="method-info">
+                                        <h3>WhatsApp</h3>
+                                        <p>0812-3456-7890</p>
+                                        <span>Fast Response 5 Menit</span>
+                                    </div>
+                                </div>
+
+                                <div class="contact-method">
+                                    <div class="method-icon">
+                                        <i class="fab fa-telegram"></i>
+                                    </div>
+                                    <div class="method-info">
+                                        <h3>Telegram</h3>
+                                        <p>@menang888_support</p>
+                                        <span>24/7 Online</span>
+                                    </div>
+                                </div>
+
+                                <div class="contact-method">
+                                    <div class="method-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="method-info">
+                                        <h3>Email</h3>
+                                        <p>support@menang888.com</p>
+                                        <span>Response dalam 1 Jam</span>
+                                    </div>
+                                </div>
+
+                                <div class="contact-method">
+                                    <div class="method-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="method-info">
+                                        <h3>Jam Operasional</h3>
+                                        <p>24 Jam / 7 Hari</p>
+                                        <span>Non-stop Service</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-form">
+                            <h3>Kirim Pesan</h3>
+                            <form class="message-form" id="message-form">
+                                <div class="form-group">
+                                    <label for="message-name">Nama Lengkap</label>
+                                    <input type="text" id="message-name" placeholder="Masukkan nama lengkap" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message-email">Email</label>
+                                    <input type="email" id="message-email" placeholder="email@example.com" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message-subject">Subjek</label>
+                                    <select id="message-subject" required>
+                                        <option value="">Pilih subjek</option>
+                                        <option value="deposit">Masalah Deposit</option>
+                                        <option value="withdraw">Masalah Withdraw</option>
+                                        <option value="bonus">Klaim Bonus</option>
+                                        <option value="technical">Masalah Teknis</option>
+                                        <option value="other">Lainnya</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message-content">Pesan</label>
+                                    <textarea id="message-content" placeholder="Jelaskan masalah atau pertanyaan Anda..." rows="5" required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-paper-plane"></i> Kirim Pesan
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Terms Section -->
+                <section class="terms-section">
+                    <h2>Syarat & Ketentuan</h2>
+                    <div class="terms-content">
+                        <div class="term-category">
+                            <h3><i class="fas fa-user"></i> Ketentuan Umum</h3>
+                            <ul>
+                                <li>Pemain harus berusia minimal 18 tahun</li>
+                                <li>Setiap akun hanya boleh dimiliki oleh satu orang</li>
+                                <li>Dilarang melakukan kecurangan dalam bentuk apapun</li>
+                                <li>Keputusan MENANG888 bersifat mutlak dan mengikat</li>
+                            </ul>
+                        </div>
+
+                        <div class="term-category">
+                            <h3><i class="fas fa-gift"></i> Ketentuan Bonus</h3>
+                            <ul>
+                                <li>Bonus hanya bisa diklaim sekali per orang</li>
+                                <li>Turnover harus dipenuhi sebelum withdraw</li>
+                                <li>Bonus tidak bisa digabung dengan promo lain</li>
+                                <li>Berlaku syarat dan ketentuan masing-masing promo</li>
+                            </ul>
+                        </div>
+
+                        <div class="term-category">
+                            <h3><i class="fas fa-shield-alt"></i> Kebijakan Privasi</h3>
+                            <ul>
+                                <li>Data pribadi dijaga kerahasiaannya</li>
+                                <li>Informasi tidak akan dibagikan ke pihak ketiga</li>
+                                <li>Menggunakan teknologi enkripsi SSL</li>
+                                <li>Transaksi diproses dengan sistem keamanan tinggi</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <i class="fas fa-dice"></i>
+                            <span>MENANG888</span>
+                        </div>
+                        <p>Platform game online terpercaya dengan pembayaran instan dan layanan 24/7.</p>
+                        <div class="security-badges">
+                            <div class="badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Data Terlindungi</span>
+                            </div>
+                            <div class="badge">
+                                <i class="fas fa-lock"></i>
+                                <span>SSL Secure</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="social-section">
-                        <h3>Follow Kami</h3>
-                        <div class="social-icons">
-                            <a href="https://facebook.com" class="social-icon" target="_blank">
-                                <i class="fab fa-facebook-f"></i>
-                                <span>Facebook</span>
+                    <div class="footer-section">
+                        <h4>Permainan</h4>
+                        <a href="games.html">Slot Games</a>
+                        <a href="games.html">Live Casino</a>
+                        <a href="games.html">Sportsbook</a>
+                        <a href="games.html">Poker</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Bantuan</h4>
+                        <a href="info.html">Cara Deposit</a>
+                        <a href="info.html">Cara Withdraw</a>
+                        <a href="info.html">Syarat & Ketentuan</a>
+                        <a href="info.html">Kebijakan Privasi</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Hubungi Kami</h4>
+                        <div class="contact-links">
+                            <a href="https://wa.me/6281234567890" target="_blank">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
                             </a>
-                            
-                            <a href="https://telegram.org" class="social-icon" target="_blank">
-                                <i class="fab fa-telegram"></i>
-                                <span>Telegram</span>
+                            <a href="https://t.me/menang888" target="_blank">
+                                <i class="fab fa-telegram"></i> Telegram
                             </a>
-                            
-                            <a href="https://wa.me/6281234567890" class="social-icon" target="_blank">
-                                <i class="fab fa-whatsapp"></i>
-                                <span>WhatsApp</span>
-                            </a>
-                            
-                            <a href="index.html" class="social-icon">
-                                <i class="fas fa-globe"></i>
-                                <span>Website</span>
+                            <a href="mailto:support@menang888.com">
+                                <i class="fas fa-envelope"></i> Email
                             </a>
                         </div>
                     </div>
                 </div>
+                
+                <div class="footer-bottom">
+                    <p>&copy; 2024 MENANG888. All rights reserved. | 18+ Only | Play Responsibly</p>
+                </div>
             </div>
-        </div>
-    </main>
+        </footer>
+    </div>
 
+    <!-- JavaScript -->
     <script src="js/app.js"></script>
+    <script src="js/security.js"></script>
     <script src="js/router.js"></script>
+
+    <script>
+        // Initialize info page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update user info if logged in
+            if (window.app && window.app.currentUser) {
+                document.getElementById('balance-amount').textContent = window.app.formatCurrency(window.app.currentUser.balance);
+                document.getElementById('username-display').textContent = window.app.currentUser.username;
+                document.getElementById('user-id-display').textContent = `ID: ${window.app.currentUser.id}`;
+                
+                // Update avatar color
+                const avatar = document.getElementById('user-avatar');
+                const colors = ['#6366f1', '#06d6a0', '#ff6b6b', '#ffd166'];
+                const colorIndex = window.app.currentUser.username.length % colors.length;
+                avatar.style.background = `linear-gradient(135deg, ${colors[colorIndex]}, ${colors[(colorIndex + 1) % colors.length]})`;
+            }
+
+            initializeInfoPage();
+        });
+
+        function initializeInfoPage() {
+            // FAQ functionality
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    // Toggle current question
+                    answer.classList.toggle('active');
+                    icon.classList.toggle('fa-chevron-down');
+                    icon.classList.toggle('fa-chevron-up');
+                    
+                    // Close other questions
+                    document.querySelectorAll('.faq-question').forEach(otherQuestion => {
+                        if (otherQuestion !== this) {
+                            const otherAnswer = otherQuestion.nextElementSibling;
+                            const otherIcon = otherQuestion.querySelector('i');
+                            otherAnswer.classList.remove('active');
+                            otherIcon.classList.remove('fa-chevron-up');
+                            otherIcon.classList.add('fa-chevron-down');
+                        }
+                    });
+                });
+            });
+
+            // FAQ categories
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    
+                    // Update active button
+                    document.querySelectorAll('.category-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Show corresponding FAQ
+                    document.querySelectorAll('.faq-category').forEach(cat => {
+                        cat.classList.remove('active');
+                    });
+                    document.getElementById(`${category}-faq`).classList.add('active');
+                });
+            });
+
+            // Contact form
+            document.getElementById('message-form').addEventListener('submit', handleMessageSubmit);
+
+            // Pre-fill form if user is logged in
+            if (window.app && window.app.currentUser) {
+                document.getElementById('message-name').value = window.app.currentUser.username;
+                document.getElementById('message-email').value = window.app.currentUser.email || '';
+            }
+        }
+
+        function showFAQ(category) {
+            // Show the corresponding FAQ category
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+            
+            document.querySelectorAll('.faq-category').forEach(cat => {
+                cat.classList.remove('active');
+            });
+            document.getElementById(`${category}-faq`).classList.add('active');
+            
+            // Scroll to FAQ section
+            document.querySelector('.faq-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function handleMessageSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('message-name').value;
+            const email = document.getElementById('message-email').value;
+            const subject = document.getElementById('message-subject').value;
+            const content = document.getElementById('message-content').value;
+
+            // Simulate sending message
+            window.app.showLoading('Mengirim pesan...');
+
+            setTimeout(() => {
+                window.app.hideLoading();
+                window.app.showNotification('Pesan berhasil dikirim! Tim support akan menghubungi Anda segera.', 'success');
+                
+                // Reset form
+                document.getElementById('message-form').reset();
+                
+                // Pre-fill again if user is logged in
+                if (window.app && window.app.currentUser) {
+                    document.getElementById('message-name').value = window.app.currentUser.username;
+                    document.getElementById('message-email').value = window.app.currentUser.email || '';
+                }
+            }, 2000);
+        }
+
+        function openSupport() {
+            alert('Customer Service: 24/7 WhatsApp: 0812-3456-7890');
+        }
+    </script>
+
     <style>
-        .info-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* Info Page Specific Styles */
+        .info-header {
+            text-align: center;
             margin-bottom: 40px;
+            padding: 40px 0;
         }
-        
-        .contact-item {
+
+        .info-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .info-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .info-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .info-stats .stat {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius);
+            min-width: 180px;
+        }
+
+        .info-stats .stat i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .info-stats .value {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .info-stats .label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Quick Help */
+        .quick-help {
+            margin-bottom: 50px;
+        }
+
+        .quick-help h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .help-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
-        
-        .contact-item:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--card-glow);
-            background: rgba(255, 255, 255, 0.08);
+
+        .help-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
         }
-        
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+
+        .help-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.8rem;
             color: white;
-            box-shadow: var(--soft-glow);
+            margin: 0 auto 20px;
         }
-        
-        .contact-details h3 {
-            color: var(--light-color);
-            margin-bottom: 5px;
+
+        .help-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .help-card p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 50px;
+        }
+
+        .faq-section h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+
+        .faq-categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .category-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-primary);
+        }
+
+        .category-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        .faq-category {
+            display: none;
+        }
+
+        .faq-category.active {
+            display: block;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .faq-question h3 {
             font-size: 1.1rem;
-        }
-        
-        .contact-details p {
-            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            color: var(--text-primary);
             margin: 0;
         }
-        
-        .social-section {
-            text-align: center;
+
+        .faq-question i {
+            color: var(--text-secondary);
+            transition: transform 0.3s ease;
         }
-        
-        .social-section h3 {
-            color: var(--light-color);
-            margin-bottom: 20px;
-            font-size: 1.3rem;
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        
-        .social-icons {
+
+        .faq-answer.active {
+            padding: 0 25px 25px;
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin-bottom: 50px;
+        }
+
+        .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
         }
-        
-        .social-icon {
+
+        .contact-info h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .contact-info > p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .contact-methods {
             display: flex;
             flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateX(5px);
+        }
+
+        .method-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .method-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .method-info p {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: var(--text-primary);
+        }
+
+        .method-info span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+        }
+
+        .contact-form h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+
+        .message-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .message-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .message-form input,
+        .message-form select,
+        .message-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .message-form input:focus,
+        .message-form select:focus,
+        .message-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .message-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Terms Section */
+        .terms-section {
+            margin-bottom: 40px;
+        }
+
+        .terms-section h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+
+        .terms-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .term-category {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius);
+            padding: 25px;
+        }
+
+        .term-category h3 {
+            display: flex;
             align-items: center;
             gap: 10px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            color: inherit;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .term-category ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .term-category li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .term-category li:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer Contact Links */
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
-        .social-icon:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-glow);
-            background: rgba(255, 255, 255, 0.08);
-            color: inherit;
-            text-decoration: none;
+
+        .contact-links a:hover {
+            color: var(--primary);
         }
-        
-        .social-icon i {
-            font-size: 2rem;
-            color: var(--primary-color);
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .info-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-categories {
+                flex-direction: column;
+            }
+            
+            .terms-content {
+                grid-template-columns: 1fr;
+            }
         }
-        
-        .social-icon span {
-            color: var(--light-color);
-            font-weight: bold;
+
+        @media (max-width: 480px) {
+            .info-header h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-method {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .faq-question {
+                padding: 15px 20px;
+            }
+            
+            .faq-question h3 {
+                font-size: 1rem;
+            }
         }
     </style>
 </body>
