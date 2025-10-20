@@ -2,11 +2,41 @@ class MENANG888App {
     constructor() {
         this.currentUser = null;
         this.users = JSON.parse(localStorage.getItem('menang888_users')) || [];
+        
+        // Create default admin if no users exist
+        if (this.users.length === 0) {
+            this.createDefaultAdmin();
+        }
+        
         this.init();
     }
 
+    createDefaultAdmin() {
+        const defaultAdmin = {
+            id: 'ADMIN001',
+            username: 'admin',
+            password: 'admin123',
+            email: 'admin@menang888.com',
+            phone: '081234567890',
+            bankAccount: '1234567890',
+            bankName: 'Admin MENANG888',
+            balance: 100000,
+            isAdmin: true,
+            createdAt: new Date().toISOString()
+        };
+        
+        this.users.push(defaultAdmin);
+        this.saveUsers();
+        console.log('Default admin created:', defaultAdmin);
+    }
+
+    saveUsers() {
+        localStorage.setItem('menang888_users', JSON.stringify(this.users));
+    }
+
     init() {
-        this.hideLoadingImmediately(); // Hide loading FIRST
+        console.log('App initializing...');
+        this.hideLoadingImmediately();
         this.setupEventListeners();
         this.checkAutoLogin();
         
@@ -16,7 +46,6 @@ class MENANG888App {
     }
 
     hideLoadingImmediately() {
-        // Force hide loading screen
         const loadingScreen = document.getElementById('loading-screen');
         const progressLoader = document.getElementById('progress-loader');
         
@@ -31,17 +60,26 @@ class MENANG888App {
     }
 
     setupEventListeners() {
-        document.getElementById('logout-btn')?.addEventListener('click', () => {
-            this.logout();
-        });
+        console.log('Setting up event listeners...');
+        
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                this.logout();
+            });
+        }
 
-        document.getElementById('admin-btn')?.addEventListener('click', () => {
-            if (this.currentUser && this.currentUser.isAdmin) {
-                window.location.href = 'admin.html';
-            }
-        });
+        const adminBtn = document.getElementById('admin-btn');
+        if (adminBtn) {
+            adminBtn.addEventListener('click', () => {
+                if (this.currentUser && this.currentUser.isAdmin) {
+                    window.location.href = 'admin.html';
+                } else {
+                    this.showNotification('Akses ditolak. Hanya admin!', 'error');
+                }
+            });
+        }
 
-        // Quick modal handlers
         document.querySelectorAll('.close-modal').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const modal = e.target.closest('.modal');
@@ -59,42 +97,68 @@ class MENANG888App {
     }
 
     showModal(modalId) {
-        document.getElementById(modalId)?.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
     }
 
     hideModal(modalId) {
-        document.getElementById(modalId)?.classList.remove('active');
-        document.body.style.overflow = 'auto';
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
     }
 
     checkAutoLogin() {
         const savedUser = localStorage.getItem('menang888_current_user');
         if (savedUser) {
-            this.currentUser = JSON.parse(savedUser);
-            document.getElementById('main-app').style.display = 'block';
-            this.updateUserDisplay();
+            try {
+                this.currentUser = JSON.parse(savedUser);
+                const mainApp = document.getElementById('main-app');
+                if (mainApp) {
+                    mainApp.style.display = 'block';
+                }
+                this.updateUserDisplay();
+                console.log('Auto login successful:', this.currentUser.username);
+            } catch (error) {
+                console.error('Auto login error:', error);
+            }
         }
     }
 
     updateUserDisplay() {
         if (!this.currentUser) return;
+        
         const balanceEl = document.getElementById('balance');
         const userIdEl = document.getElementById('user-id-display');
         
         if (balanceEl) balanceEl.textContent = this.currentUser.balance.toLocaleString();
         if (userIdEl) userIdEl.textContent = this.currentUser.id;
+        
+        // Show/hide admin button
+        const adminBtn = document.getElementById('admin-btn');
+        if (adminBtn) {
+            adminBtn.style.display = this.currentUser.isAdmin ? 'block' : 'none';
+        }
     }
 
     logout() {
         this.currentUser = null;
         localStorage.removeItem('menang888_current_user');
-        document.getElementById('main-app').style.display = 'none';
+        
+        const mainApp = document.getElementById('main-app');
+        if (mainApp) {
+            mainApp.style.display = 'none';
+        }
+        
         this.showModal('login-modal');
+        this.showNotification('Anda telah logout', 'info');
     }
 
     showNotification(message, type = 'info') {
-        // Ultra fast notification
         const notification = document.createElement('div');
         notification.className = `notification`;
         notification.style.cssText = `
@@ -122,8 +186,12 @@ class MENANG888App {
 
         setTimeout(() => {
             notification.style.animation = 'slideOutRight 0.2s ease';
-            setTimeout(() => notification.remove(), 200);
-        }, 2000);
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 200);
+        }, 3000);
     }
 
     getNotificationColor(type) {
@@ -147,7 +215,7 @@ class MENANG888App {
     }
 }
 
-// Add instant CSS animations
+// Add CSS animations
 const instantStyles = document.createElement('style');
 instantStyles.textContent = `
     @keyframes slideInRight {
@@ -158,17 +226,13 @@ instantStyles.textContent = `
         from { transform: translateX(0); opacity: 1; }
         to { transform: translateX(100%); opacity: 0; }
     }
-    .instant { transition: all 0.2s ease !important; }
 `;
 document.head.appendChild(instantStyles);
 
-// Start app immediately
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        window.app = new MENANG888App();
-        window.authSystem = new AuthSystem(window.app);
-    });
-} else {
+// Initialize app
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing app...');
     window.app = new MENANG888App();
     window.authSystem = new AuthSystem(window.app);
-}
+    console.log('App initialized successfully');
+});
