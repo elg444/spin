@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permainan - MENANG888</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/games.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="dark-theme">
+    <!-- Security Check -->
+    <script>
+        const currentUser = JSON.parse(localStorage.getItem('menang888_current_user'));
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+    </script>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-container">
+            <div class="neon-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h1>GAMES</h1>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <p>Memuat permainan...</p>
+        </div>
+    </div>
+
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="stars"></div>
+        <div class="particles"></div>
+        <div class="gradient-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="main-app" class="main-app">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo-section">
+                        <a href="index.html" class="logo">
+                            <i class="fas fa-dice"></i>
+                            <span>MENANG888</span>
+                        </a>
+                        <div class="online-status">
+                            <div class="status-dot"></div>
+                            <span>Online</span>
+                        </div>
+                    </div>
+
+                    <div class="user-section">
+                        <div class="user-wallet">
+                            <div class="balance-card">
+                                <i class="fas fa-wallet"></i>
+                                <div class="balance-info">
+                                    <span class="balance-amount" id="balance-amount">0</span>
+                                    <span class="balance-label">Saldo Tersedia</span>
+                                </div>
+                            </div>
+                            <button class="btn-quick-deposit" onclick="quickDeposit()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <div class="user-profile">
+                            <div class="profile-avatar" id="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <span class="username" id="username-display">Guest</span>
+                                <span class="user-id" id="user-id-display">ID: -</span>
+                            </div>
+                            <div class="profile-dropdown">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a href="profile.html" class="dropdown-item">
+                                        <i class="fas fa-user-cog"></i> Profile
+                                    </a>
+                                    <a href="deposit.html" class="dropdown-item">
+                                        <i class="fas fa-money-bill-wave"></i> Deposit
+                                    </a>
+                                    <a href="withdraw.html" class="dropdown-item">
+                                        <i class="fas fa-wallet"></i> Withdraw
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item logout-btn" onclick="app.logout()">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="nav-links">
+                        <a href="index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Beranda</span>
+                        </a>
+                        <a href="games.html" class="nav-link active">
+                            <i class="fas fa-gamepad"></i>
+                            <span>Permainan</span>
+                        </a>
+                        <a href="promo.html" class="nav-link">
+                            <i class="fas fa-gift"></i>
+                            <span>Promo</span>
+                        </a>
+                        <a href="info.html" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Info</span>
+                        </a>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <button class="btn-support" onclick="openSupport()">
+                            <i class="fas fa-headset"></i>
+                            Support
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Games Header -->
+                <section class="games-header">
+                    <div class="header-content">
+                        <h1>Pilih Permainan Favorit Anda</h1>
+                        <p>Temukan berbagai game seru dengan peluang menang terbaik</p>
+                        <div class="games-stats">
+                            <div class="stat">
+                                <i class="fas fa-gamepad"></i>
+                                <div>
+                                    <span class="value" id="total-games">50+</span>
+                                    <span class="label">Games Available</span>
+                                </div>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <span class="value" id="active-players">2.4k</span>
+                                    <span class="label">Active Players</span>
+                                </div>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-trophy"></i>
+                                <div>
+                                    <span class="value" id="daily-wins">Rp 89Jt</span>
+                                    <span class="label">Won Today</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Games Filter -->
+                <section class="games-filter">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-category="all">
+                            <i class="fas fa-th"></i>
+                            Semua Game
+                        </button>
+                        <button class="filter-tab" data-category="slots">
+                            <i class="fas fa-slots"></i>
+                            Slot Games
+                        </button>
+                        <button class="filter-tab" data-category="live">
+                            <i class="fas fa-crown"></i>
+                            Live Casino
+                        </button>
+                        <button class="filter-tab" data-category="sports">
+                            <i class="fas fa-basketball-ball"></i>
+                            Sportsbook
+                        </button>
+                        <button class="filter-tab" data-category="poker">
+                            <i class="fas fa-spade"></i>
+                            Poker
+                        </button>
+                    </div>
+                    
+                    <div class="filter-search">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="game-search" placeholder="Cari game...">
+                        </div>
+                        <div class="sort-options">
+                            <select id="game-sort">
+                                <option value="popular">Populer</option>
+                                <option value="new">Terbaru</option>
+                                <option value="name">A-Z</option>
+                                <option value="payout">Tertinggi</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Games Grid -->
+                <section class="games-container">
+                    <div class="games-grid" id="games-grid">
+                        <!-- Games will be populated by JavaScript -->
+                    </div>
+                    
+                    <!-- Loading State -->
+                    <div class="games-loading" id="games-loading">
+                        <div class="loading-spinner"></div>
+                        <p>Memuat permainan...</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <i class="fas fa-dice"></i>
+                            <span>MENANG888</span>
+                        </div>
+                        <p>Platform game online terpercaya dengan pembayaran instan dan layanan 24/7.</p>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Bantuan</h4>
+                        <a href="info.html">Cara Deposit</a>
+                        <a href="info.html">Cara Withdraw</a>
+                        <a href="info.html">Syarat & Ketentuan</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Keamanan</h4>
+                        <div class="security-badges">
+                            <div class="badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Data Terlindungi</span>
+                            </div>
+                            <div class="badge">
+                                <i class="fas fa-lock"></i>
+                                <span>SSL Secure</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>&copy; 2024 MENANG888. All rights reserved. | 18+ Only</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Game Detail Modal -->
+    <div class="modal game-modal" id="game-detail-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="game-modal-title">Game Title</h2>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="game-detail">
+                    <div class="game-preview">
+                        <img id="game-modal-image" src="" alt="Game Preview">
+                        <div class="game-badges">
+                            <span class="badge hot" id="game-badge-1">HOT</span>
+                            <span class="badge new" id="game-badge-2">NEW</span>
+                        </div>
+                    </div>
+                    <div class="game-info">
+                        <div class="game-stats">
+                            <div class="stat">
+                                <i class="fas fa-chart-line"></i>
+                                <span>RTP: <strong id="game-rtp">96.5%</strong></span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>Players: <strong id="game-players">2.4k</strong></span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-trophy"></i>
+                                <span>Volatility: <strong id="game-volatility">Medium</strong></span>
+                            </div>
+                        </div>
+                        <p class="game-description" id="game-description">Game description goes here...</p>
+                        <div class="game-features">
+                            <h4>Fitur Spesial:</h4>
+                            <ul id="game-features-list">
+                                <li><i class="fas fa-check"></i> Free Spins</li>
+                                <li><i class="fas fa-check"></i> Bonus Rounds</li>
+                                <li><i class="fas fa-check"></i> Progressive Jackpot</li>
+                            </ul>
+                        </div>
+                        <div class="game-actions">
+                            <button class="btn-play-now" id="btn-play-game">
+                                <i class="fas fa-play"></i>
+                                Main Sekarang
+                            </button>
+                            <button class="btn-demo" onclick="playDemo()">
+                                <i class="fas fa-eye"></i>
+                                Coba Demo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/games.js"></script>
+    <script src="js/router.js"></script>
+
+    <script>
+        // Initialize games page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update user info
+            if (window.app && window.app.currentUser) {
+                document.getElementById('balance-amount').textContent = window.app.formatCurrency(window.app.currentUser.balance);
+                document.getElementById('username-display').textContent = window.app.currentUser.username;
+                document.getElementById('user-id-display').textContent = `ID: ${window.app.currentUser.id}`;
+                
+                // Update avatar color
+                const avatar = document.getElementById('user-avatar');
+                const colors = ['#6366f1', '#06d6a0', '#ff6b6b', '#ffd166'];
+                const colorIndex = window.app.currentUser.username.length % colors.length;
+                avatar.style.background = `linear-gradient(135deg, ${colors[colorIndex]}, ${colors[(colorIndex + 1) % colors.length]})`;
+            }
+
+            // Initialize games manager
+            if (window.gamesManager) {
+                window.gamesManager.init();
+            }
+        });
+
+        function quickDeposit() {
+            window.location.href = 'deposit.html';
+        }
+
+        function openSupport() {
+            alert('Customer Service: 24/7 WhatsApp: 0812-3456-7890');
+        }
+    </script>
+</body>
+</html>
