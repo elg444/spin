@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info Kami - MENANG888</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loading.css">
+</head>
+<body>
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="neon-loader">
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+            </div>
+            <div class="loading-text">
+                <span class="neon-text">MENANG888</span>
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-elements">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-dice"></i>
+                    <span>MENANG888</span>
+                </a>
+                <div class="user-info">
+                    <a href="index.html" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-section active">
+                <div class="section-header">
+                    <h2>Info Kami</h2>
+                    <p>Hubungi kami melalui media sosial berikut</p>
+                </div>
+                
+                <div class="info-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Jam Operasional</h3>
+                                <p>24 Jam / 7 Hari</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Customer Service</h3>
+                                <p>Fast Response 5 Menit</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Keamanan</h3>
+                                <p>Data Terlindungi & Aman</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-section">
+                        <h3>Follow Kami</h3>
+                        <div class="social-icons">
+                            <a href="https://facebook.com" class="social-icon" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
+                                <span>Facebook</span>
+                            </a>
+                            
+                            <a href="https://telegram.org" class="social-icon" target="_blank">
+                                <i class="fab fa-telegram"></i>
+                                <span>Telegram</span>
+                            </a>
+                            
+                            <a href="https://wa.me/6281234567890" class="social-icon" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                            
+                            <a href="index.html" class="social-icon">
+                                <i class="fas fa-globe"></i>
+                                <span>Website</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/router.js"></script>
+    <style>
+        .info-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-glow);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: var(--soft-glow);
+        }
+        
+        .contact-details h3 {
+            color: var(--light-color);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .contact-details p {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+        }
+        
+        .social-section {
+            text-align: center;
+        }
+        
+        .social-section h3 {
+            color: var(--light-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .social-icons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+        
+        .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-glow);
+            background: rgba(255, 255, 255, 0.08);
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .social-icon i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        
+        .social-icon span {
+            color: var(--light-color);
+            font-weight: bold;
+        }
+    </style>
+</body>
+</html>
