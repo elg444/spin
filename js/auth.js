@@ -6,46 +6,75 @@ class AuthSystem {
     }
 
     setupAuthEvents() {
-        // Instant form submissions
-        document.getElementById('confirm-login')?.addEventListener('click', () => {
-            this.handleLogin();
-        });
+        console.log('Setting up auth events...');
+        
+        // Login button
+        const loginBtn = document.getElementById('confirm-login');
+        if (loginBtn) {
+            loginBtn.addEventListener('click', () => {
+                console.log('Login button clicked');
+                this.handleLogin();
+            });
+        } else {
+            console.error('Login button not found!');
+        }
 
-        document.getElementById('confirm-register')?.addEventListener('click', () => {
-            this.handleRegister();
-        });
+        // Register button
+        const registerBtn = document.getElementById('confirm-register');
+        if (registerBtn) {
+            registerBtn.addEventListener('click', () => {
+                console.log('Register button clicked');
+                this.handleRegister();
+            });
+        }
 
-        // Quick navigation between modals
-        document.getElementById('goto-register')?.addEventListener('click', () => {
-            this.app.hideModal('login-modal');
-            this.app.showModal('register-modal');
-            this.generateCaptcha();
-        });
+        // Navigation between modals
+        const gotoRegister = document.getElementById('goto-register');
+        if (gotoRegister) {
+            gotoRegister.addEventListener('click', () => {
+                this.app.hideModal('login-modal');
+                this.app.showModal('register-modal');
+                this.generateCaptcha();
+            });
+        }
 
-        document.getElementById('goto-login')?.addEventListener('click', () => {
-            this.app.hideModal('register-modal');
-            this.app.showModal('login-modal');
-        });
+        const gotoLogin = document.getElementById('goto-login');
+        if (gotoLogin) {
+            gotoLogin.addEventListener('click', () => {
+                this.app.hideModal('register-modal');
+                this.app.showModal('login-modal');
+            });
+        }
 
-        // Instant captcha refresh
-        document.getElementById('refresh-captcha')?.addEventListener('click', () => {
-            this.generateCaptcha();
-        });
+        // Captcha refresh
+        const refreshCaptcha = document.getElementById('refresh-captcha');
+        if (refreshCaptcha) {
+            refreshCaptcha.addEventListener('click', () => {
+                this.generateCaptcha();
+            });
+        }
 
-        // Enter key submission
+        // Enter key support
         document.getElementById('login-password')?.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.handleLogin();
         });
     }
 
     handleLogin() {
+        console.log('Handle login called');
+        
         const username = document.getElementById('login-username').value.trim();
         const password = document.getElementById('login-password').value;
 
-        if (!this.validateLoginInput(username, password)) return;
+        console.log('Username:', username, 'Password:', password);
 
-        // NO LOADING SCREEN - instant feedback
+        if (!username || !password) {
+            this.app.showNotification('Username dan password harus diisi!', 'error');
+            return;
+        }
+
         const user = this.authenticateUser(username, password);
+        console.log('User found:', user);
         
         if (user) {
             this.app.currentUser = user;
@@ -54,72 +83,90 @@ class AuthSystem {
             this.app.hideModal('login-modal');
             document.getElementById('main-app').style.display = 'block';
             this.app.updateUserDisplay();
-            this.app.showNotification(`Welcome ${user.username}!`, 'success');
+            this.app.showNotification(`Selamat datang, ${user.username}!`, 'success');
             
             // Clear form
             document.getElementById('login-username').value = '';
             document.getElementById('login-password').value = '';
         } else {
-            this.app.showNotification('Login failed!', 'error');
+            this.app.showNotification('Username atau password salah!', 'error');
         }
     }
 
     handleRegister() {
+        console.log('Handle register called');
+        
         const formData = this.getRegisterFormData();
+        console.log('Form data:', formData);
         
         if (!this.validateRegisterInput(formData)) return;
 
-        // Instant registration
         if (this.createUser(formData)) {
             this.app.hideModal('register-modal');
             this.app.showModal('login-modal');
-            this.app.showNotification('Registration success!', 'success');
+            this.app.showNotification('Pendaftaran berhasil! Silakan login.', 'success');
             this.clearRegisterForm();
         }
     }
 
+    getRegisterFormData() {
+        return {
+            username: document.getElementById('reg-username').value.trim(),
+            password: document.getElementById('reg-password').value,
+            email: document.getElementById('reg-email').value.trim(),
+            phone: document.getElementById('reg-phone').value.trim(),
+            bankAccount: document.getElementById('reg-bank-account').value.trim(),
+            bankName: document.getElementById('reg-bank-name').value.trim(),
+            captcha: document.getElementById('reg-captcha').value.trim()
+        };
+    }
+
     validateLoginInput(username, password) {
         if (!username || !password) {
-            this.app.showNotification('Fill all fields!', 'error');
+            this.app.showNotification('Username dan password harus diisi!', 'error');
             return false;
         }
         return true;
     }
 
     validateRegisterInput(data) {
+        console.log('Validating register input:', data);
+        
         const required = ['username', 'password', 'email', 'phone', 'bankAccount', 'bankName', 'captcha'];
         for (const field of required) {
             if (!data[field]) {
-                this.app.showNotification(`Field ${field} required!`, 'error');
+                this.app.showNotification(`Field ${field} harus diisi!`, 'error');
                 return false;
             }
         }
 
         if (data.username.length < 3) {
-            this.app.showNotification('Username too short!', 'error');
+            this.app.showNotification('Username minimal 3 karakter!', 'error');
             return false;
         }
 
         if (data.password.length < 6) {
-            this.app.showNotification('Password too short!', 'error');
+            this.app.showNotification('Password minimal 6 karakter!', 'error');
             return false;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(data.email)) {
-            this.app.showNotification('Invalid email!', 'error');
+            this.app.showNotification('Format email tidak valid!', 'error');
             return false;
         }
 
         const captchaText = document.getElementById('captcha-text').textContent;
         if (data.captcha !== captchaText) {
-            this.app.showNotification('Wrong captcha!', 'error');
+            this.app.showNotification('Kode captcha tidak sesuai!', 'error');
             this.generateCaptcha();
             return false;
         }
 
-        if (this.app.users.find(u => u.username === data.username)) {
-            this.app.showNotification('Username taken!', 'error');
+        // Check if username already exists
+        const existingUser = this.app.users.find(u => u.username === data.username);
+        if (existingUser) {
+            this.app.showNotification('Username sudah digunakan!', 'error');
             return false;
         }
 
@@ -127,12 +174,20 @@ class AuthSystem {
     }
 
     authenticateUser(username, password) {
-        return this.app.users.find(user => 
-            user.username === username && user.password === password
-        );
+        console.log('Authenticating user:', username);
+        console.log('All users:', this.app.users);
+        
+        const user = this.app.users.find(user => {
+            console.log('Checking user:', user.username, 'match:', user.username === username && user.password === password);
+            return user.username === username && user.password === password;
+        });
+        
+        return user;
     }
 
     createUser(data) {
+        console.log('Creating new user:', data);
+        
         const newUser = {
             id: this.generateUserId(),
             username: data.username,
@@ -142,12 +197,16 @@ class AuthSystem {
             bankAccount: data.bankAccount,
             bankName: data.bankName,
             balance: 10000,
-            isAdmin: this.app.users.length === 0,
+            isAdmin: this.app.users.length === 0, // First user becomes admin
             createdAt: new Date().toISOString()
         };
 
+        console.log('New user created:', newUser);
+        
         this.app.users.push(newUser);
         this.saveUsers();
+        
+        console.log('Users after creation:', this.app.users);
         return true;
     }
 
@@ -177,5 +236,6 @@ class AuthSystem {
 
     saveUsers() {
         localStorage.setItem('menang888_users', JSON.stringify(this.app.users));
+        console.log('Users saved to localStorage');
     }
 }
