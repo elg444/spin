@@ -78,7 +78,6 @@ class AuthSystem {
         }
     }
 
-    // ... keep other methods the same but remove any delays
     validateLoginInput(username, password) {
         if (!username || !password) {
             this.app.showNotification('Fill all fields!', 'error');
