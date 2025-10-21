@@ -4,9 +4,8 @@ class MENANG888App {
         this.users = JSON.parse(localStorage.getItem('menang888_users')) || [];
         this.gameSettings = JSON.parse(localStorage.getItem('menang888_settings')) || this.getDefaultSettings();
         this.transactions = JSON.parse(localStorage.getItem('menang888_transactions')) || [];
-        this.api = window.api; // ✅ TAMBAH INI - Initialize API integration
+        this.api = window.api;
         
-        // Create default admin if no users exist
         if (this.users.length === 0) {
             this.createDefaultAdmin();
         }
@@ -66,7 +65,6 @@ class MENANG888App {
     }
 
     setupEventListeners() {
-        // Auth modal toggles
         document.getElementById('show-register')?.addEventListener('click', (e) => {
             e.preventDefault();
             this.showModal('register-modal');
@@ -79,7 +77,6 @@ class MENANG888App {
             this.hideModal('register-modal');
         });
 
-        // Modal close events
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
@@ -95,7 +92,6 @@ class MENANG888App {
             });
         });
 
-        // Notification system
         document.getElementById('notification-btn')?.addEventListener('click', () => {
             this.toggleNotifications();
         });
@@ -104,17 +100,14 @@ class MENANG888App {
             this.hideNotifications();
         });
 
-        // Quick actions
         document.querySelector('.btn-quick-deposit')?.addEventListener('click', () => {
             this.quickAction('deposit');
         });
 
-        // Password visibility toggle
         document.querySelectorAll('.toggle-password').forEach(btn => {
             btn.addEventListener('click', function() {
                 const input = this.parentElement.querySelector('input');
                 const icon = this.querySelector('i');
-                
                 if (input.type === 'password') {
                     input.type = 'text';
                     icon.className = 'fas fa-eye-slash';
@@ -153,13 +146,11 @@ class MENANG888App {
     updateUserDisplay() {
         if (!this.currentUser) return;
         
-        // Update balance
         const balanceEl = document.getElementById('balance-amount');
         if (balanceEl) {
             balanceEl.textContent = this.formatCurrency(this.currentUser.balance);
         }
 
-        // Update user info
         const usernameEl = document.getElementById('username-display');
         const userIdEl = document.getElementById('user-id-display');
         const welcomeUserEl = document.getElementById('welcome-username');
@@ -168,7 +159,6 @@ class MENANG888App {
         if (userIdEl) userIdEl.textContent = `ID: ${this.currentUser.id}`;
         if (welcomeUserEl) welcomeUserEl.textContent = this.currentUser.username;
 
-        // Update avatar
         const avatarEl = document.getElementById('user-avatar');
         if (avatarEl) {
             const colors = ['#6366f1', '#06d6a0', '#ff6b6b', '#ffd166'];
@@ -178,13 +168,11 @@ class MENANG888App {
     }
 
     loadUserData() {
-        // Load online players count (simulated)
         const onlinePlayersEl = document.getElementById('online-players');
         if (onlinePlayersEl) {
             onlinePlayersEl.textContent = this.formatNumber(1234 + Math.floor(Math.random() * 100));
         }
 
-        // Load today wins (simulated)
         const todayWinsEl = document.getElementById('today-wins');
         if (todayWinsEl) {
             todayWinsEl.textContent = this.formatCurrency(89000000 + Math.floor(Math.random() * 10000000));
@@ -192,7 +180,6 @@ class MENANG888App {
     }
 
     setupNotifications() {
-        // Simulate some notifications
         const notifications = [
             { id: 1, type: 'info', message: 'Bonus deposit 100% sedang berlangsung!', time: '5 menit lalu' },
             { id: 2, type: 'success', message: 'Rp 50.000 telah ditambahkan ke saldo Anda', time: '1 jam lalu' },
@@ -274,20 +261,17 @@ class MENANG888App {
         alert(message);
     }
 
-    // ✅ UPDATE: Login method dengan API integration
     async login(username, password) {
         const result = await this.api.login({ username, password });
         
         if (result.success) {
             this.currentUser = result.user;
-            // Save to localStorage for fallback
             localStorage.setItem('menang888_current_user', JSON.stringify(this.currentUser));
             this.showNotification('Login berhasil!', 'success');
             this.hideAuthModal();
             this.updateUserInfo();
             this.logSecurityEvent('user_login', `User ${username} logged in`);
             
-            // Update balance from API if available
             if (this.currentUser.balance !== undefined) {
                 this.updateUserDisplay();
             }
@@ -296,7 +280,6 @@ class MENANG888App {
         }
     }
 
-    // ✅ UPDATE: Register method dengan API integration
     async register(userData) {
         const result = await this.api.register(userData);
         
@@ -314,7 +297,6 @@ class MENANG888App {
         return result;
     }
 
-    // ✅ NEW: Deposit method dengan API integration
     async deposit(amount, method, phone) {
         if (!this.currentUser) {
             this.showNotification('Silakan login terlebih dahulu!', 'error');
@@ -331,7 +313,6 @@ class MENANG888App {
         
         if (result.success) {
             this.showNotification(result.message, 'success');
-            // Update balance if immediate (localStorage mode)
             if (result.newBalance !== undefined) {
                 this.currentUser.balance = result.newBalance;
                 localStorage.setItem('menang888_current_user', JSON.stringify(this.currentUser));
@@ -344,7 +325,6 @@ class MENANG888App {
         return result;
     }
 
-    // ✅ NEW: Withdraw method dengan API integration
     async withdraw(amount, method, phone) {
         if (!this.currentUser) {
             this.showNotification('Silakan login terlebih dahulu!', 'error');
@@ -361,7 +341,6 @@ class MENANG888App {
         
         if (result.success) {
             this.showNotification(result.message, 'success');
-            // Update balance if immediate (localStorage mode)
             if (result.newBalance !== undefined) {
                 this.currentUser.balance = result.newBalance;
                 localStorage.setItem('menang888_current_user', JSON.stringify(this.currentUser));
@@ -374,7 +353,6 @@ class MENANG888App {
         return result;
     }
 
-    // ✅ NEW: Play game dengan API integration
     async playGame(gameId, gameName, betAmount) {
         if (!this.currentUser) {
             this.showNotification('Silakan login terlebih dahulu!', 'error');
@@ -389,7 +367,6 @@ class MENANG888App {
         });
         
         if (result.success) {
-            // Update balance from game result
             this.currentUser.balance = result.result.newBalance;
             localStorage.setItem('menang888_current_user', JSON.stringify(this.currentUser));
             this.updateUserInfo();
@@ -417,7 +394,6 @@ class MENANG888App {
         this.showNotification('Anda telah logout', 'info');
     }
 
-    // Utility methods
     formatCurrency(amount) {
         return 'Rp ' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
@@ -432,14 +408,12 @@ class MENANG888App {
         return `${prefix}${timestamp}${random}`;
     }
 
-    // Security logging
     logSecurityEvent(type, message) {
         if (window.securitySystem) {
             window.securitySystem.logSecurityEvent(type, message);
         }
     }
 
-    // Data persistence
     saveUsers() {
         localStorage.setItem('menang888_users', JSON.stringify(this.users));
     }
@@ -452,9 +426,7 @@ class MENANG888App {
         localStorage.setItem('menang888_transactions', JSON.stringify(this.transactions));
     }
 
-    // Notification system
     showNotification(message, type = 'info', duration = 5000) {
-        // Remove existing notifications
         const existingNotifications = document.querySelectorAll('.app-notification');
         existingNotifications.forEach(notif => notif.remove());
 
@@ -472,7 +444,6 @@ class MENANG888App {
 
         document.body.appendChild(notification);
 
-        // Add styles if not exists
         if (!document.getElementById('notification-styles')) {
             const styles = document.createElement('style');
             styles.id = 'notification-styles';
@@ -523,7 +494,6 @@ class MENANG888App {
             document.head.appendChild(styles);
         }
 
-        // Auto remove after duration
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.style.animation = 'slideOutRight 0.3s ease';
@@ -535,7 +505,6 @@ class MENANG888App {
             }
         }, duration);
 
-        // Add slideOut animation
         if (!document.querySelector('#slideOut-animation')) {
             const slideOutStyle = document.createElement('style');
             slideOutStyle.id = 'slideOut-animation';
@@ -548,9 +517,17 @@ class MENANG888App {
             document.head.appendChild(slideOutStyle);
         }
     }
+
+    hideAuthModal() {
+        this.hideModal('login-modal');
+        this.hideModal('register-modal');
+    }
+
+    updateUserInfo() {
+        this.updateUserDisplay();
+    }
 }
 
-// Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Starting MENANG888 Platform...');
     window.app = new MENANG888App();
