@@ -4,6 +4,7 @@ class MENANG888App {
         this.users = JSON.parse(localStorage.getItem('menang888_users')) || [];
         this.gameSettings = JSON.parse(localStorage.getItem('menang888_settings')) || this.getDefaultSettings();
         this.transactions = JSON.parse(localStorage.getItem('menang888_transactions')) || [];
+        this.api = window.api; // ✅ TAMBAH INI - Initialize API integration
         
         // Create default admin if no users exist
         if (this.users.length === 0) {
@@ -271,6 +272,133 @@ class MENANG888App {
     openSupport() {
         const message = `Customer Service MENANG888\n📞 24/7 Support\n💬 WhatsApp: 0812-3456-7890\n📧 Email: support@menang888.com`;
         alert(message);
+    }
+
+    // ✅ UPDATE: Login method dengan API integration
+    async login(username, password) {
+        const result = await this.api.login({ username, password });
+        
+        if (result.success) {
+            this.currentUser = result.user;
+            // Save to localStorage for fallback
+            localStorage.setItem('menang888_current_user', JSON.stringify(this.currentUser));
+            this.showNotification('Login berhasil!', 'success');
+            this.hideAuthModal();
+            this.updateUserInfo();
+            this.logSecurityEvent('user_login', `User ${username} logged in`);
+            
+            // Update balance from API if available
+            if (this.currentUser.balance !== undefined) {
+                this.updateUserDisplay();
+            }
+        } else {
+            this.showNotification(result.message, 'error');
+        }
+    }
+
+    // ✅ UPDATE: Register method dengan API integration
+    async register(userData) {
+        const result = await this.api.register(userData);
+        
+        if (result.success) {
+            this.currentUser = result.user;
+            localStorage.setItem('menang888_current_user', JSON.stringify(this.currentUser));
+            this.showNotification('Registrasi berhasil!', 'success');
+            this.hideAuthModal();
+            this.updateUserInfo();
+            this.logSecurityEvent('user_registered', `New user ${userData.username} registered`);
+        } else {
+            this.showNotification(result.message, 'error');
+        }
+        
+        return result;
+    }
+
+    // ✅ NEW: Deposit method dengan API integration
+    async deposit(amount, method, phone) {
+        if (!this.currentUser) {
+            this.showNotification('Silakan login terlebih dahulu!', 'error');
+            return;
+        }
+
+        const result = await this.api.deposit({
+            userId: this.currentUser.id,
+            username: this.currentUser.username,
+            amount: amount,
+            method: method,
+            phone: phone
+        });
+        
+        if (result.success) {
+            this.showNotification(result.message, 'success');
+            // Update balance if immediate (localStorage mode)
+            if (result.newBalance !== undefined) {
+                this.currentUser.balance = result.newBalance;
+                localStorage.setItem('menang888_current_user', JSON.stringify(this.currentUser));
+                this.updateUserInfo();
+            }
+        } else {
+            this.showNotification(result.message, 'error');
+        }
+        
+        return result;
+    }
+
+    // ✅ NEW: Withdraw method dengan API integration
+    async withdraw(amount, method, phone) {
+        if (!this.currentUser) {
+            this.showNotification('Silakan login terlebih dahulu!', 'error');
+            return;
+        }
+
+        const result = await this.api.withdraw({
+            userId: this.currentUser.id,
+            username: this.currentUser.username,
+            amount: amount,
+            method: method,
+            phone: phone
+        });
+        
+        if (result.success) {
+            this.showNotification(result.message, 'success');
+            // Update balance if immediate (localStorage mode)
+            if (result.newBalance !== undefined) {
+                this.currentUser.balance = result.newBalance;
+                localStorage.setItem('menang888_current_user', JSON.stringify(this.currentUser));
+                this.updateUserInfo();
+            }
+        } else {
+            this.showNotification(result.message, 'error');
+        }
+        
+        return result;
+    }
+
+    // ✅ NEW: Play game dengan API integration
+    async playGame(gameId, gameName, betAmount) {
+        if (!this.currentUser) {
+            this.showNotification('Silakan login terlebih dahulu!', 'error');
+            return null;
+        }
+
+        const result = await this.api.playGame({
+            userId: this.currentUser.id,
+            gameId: gameId,
+            gameName: gameName,
+            betAmount: betAmount
+        });
+        
+        if (result.success) {
+            // Update balance from game result
+            this.currentUser.balance = result.result.newBalance;
+            localStorage.setItem('menang888_current_user', JSON.stringify(this.currentUser));
+            this.updateUserInfo();
+            
+            return result.result;
+        } else {
+            this.showNotification(result.message, 'error');
+            return null;
+        }
     }
 
     logout() {
