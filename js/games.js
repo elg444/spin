@@ -301,7 +301,8 @@ class GamesManager {
         document.body.style.overflow = 'auto';
     }
 
-    playGame(gameId) {
+    // ✅ UPDATE: Play game method dengan API integration
+    async playGame(gameId) {
         const game = this.games.find(g => g.id === gameId);
         if (!game) return;
 
@@ -312,47 +313,155 @@ class GamesManager {
             return;
         }
 
-        if (currentUser.balance < game.minBet) {
-            window.app.showNotification(`Saldo tidak cukup! Minimum bet: ${window.app.formatCurrency(game.minBet)}`, 'error');
+        // Show bet modal
+        this.showBetModal(game);
+    }
+
+    showBetModal(game) {
+        const modal = document.getElementById('bet-modal');
+        if (!modal) {
+            this.createBetModal();
+        }
+
+        document.getElementById('bet-game-name').textContent = game.name;
+        document.getElementById('bet-game-id').value = game.id;
+        document.getElementById('bet-amount').value = game.minBet;
+        document.getElementById('min-bet').textContent = window.app.formatCurrency(game.minBet);
+        document.getElementById('max-bet').textContent = window.app.formatCurrency(game.maxBet);
+        
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    createBetModal() {
+        const modalHTML = `
+            <div class="modal" id="bet-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Place Your Bet</h2>
+                        <button class="close-modal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="bet-info">
+                            <h3 id="bet-game-name">Game Name</h3>
+                            <p>Min Bet: <span id="min-bet">0</span> | Max Bet: <span id="max-bet">0</span></p>
+                        </div>
+                        <div class="bet-controls">
+                            <label for="bet-amount">Bet Amount:</label>
+                            <input type="number" id="bet-amount" min="0" step="100">
+                            <div class="quick-bets">
+                                <button class="btn-quick-bet" data-multiplier="1">1x</button>
+                                <button class="btn-quick-bet" data-multiplier="2">2x</button>
+                                <button class="btn-quick-bet" data-multiplier="5">5x</button>
+                                <button class="btn-quick-bet" data-multiplier="10">10x</button>
+                            </div>
+                        </div>
+                        <div class="bet-actions">
+                            <button class="btn-bet-confirm" id="btn-confirm-bet">
+                                <i class="fas fa-play"></i>
+                                Place Bet
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+        // Add event listeners
+        document.querySelector('#bet-modal .close-modal').addEventListener('click', () => {
+            this.hideBetModal();
+        });
+
+        document.getElementById('btn-confirm-bet').addEventListener('click', () => {
+            this.placeBet();
+        });
+
+        // Quick bet buttons
+        document.querySelectorAll('.btn-quick-bet').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const multiplier = parseInt(e.target.dataset.multiplier);
+                const gameId = document.getElementById('bet-game-id').value;
+                const game = this.games.find(g => g.id === gameId);
+                const quickBetAmount = game.minBet * multiplier;
+                document.getElementById('bet-amount').value = quickBetAmount;
+            });
+        });
+    }
+
+    hideBetModal() {
+        document.getElementById('bet-modal').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    async placeBet() {
+        const gameId = document.getElementById('bet-game-id').value;
+        const betAmount = parseInt(document.getElementById('bet-amount').value);
+        const game = this.games.find(g => g.id === gameId);
+
+        if (!game) {
+            window.app.showNotification('Game tidak ditemukan!', 'error');
             return;
         }
 
-        // Log game access
-        window.app.logSecurityEvent('game_accessed', `User played ${game.name}`);
+        if (betAmount < game.minBet) {
+            window.app.showNotification(`Minimum bet adalah ${window.app.formatCurrency(game.minBet)}`, 'error');
+            return;
+        }
 
-        // Redirect to game page based on category
-        switch(game.category) {
-            case 'slots':
-                if (gameId === 'slot-1') {
-                    window.location.href = 'slot.html';
-                } else {
-                    this.startGameSession(game);
-                }
-                break;
-            case 'live':
-                window.app.showNotification('Live casino akan segera hadir!', 'info');
-                break;
-            case 'poker':
-                window.app.showNotification('Poker room akan segera hadir!', 'info');
-                break;
-            case 'sports':
-                window.app.showNotification('Sportsbook akan segera hadir!', 'info');
-                break;
-            default:
-                this.startGameSession(game);
+        if (betAmount > game.maxBet) {
+            window.app.showNotification(`Maximum bet adalah ${window.app.formatCurrency(game.maxBet)}`, 'error');
+            return;
+        }
+
+        try {
+            // Use API for game play
+            const result = await window.app.playGame(gameId, game.name, betAmount);
+            this.hideBetModal();
+            
+            if (result) {
+                this.showGameResult({
+                    gameId,
+                    gameName: game.name,
+                    betAmount,
+                    winAmount: result.winAmount,
+                    isWin: result.isWin,
+                    timestamp: new Date().toISOString()
+                });
+            }
+            
+        } catch (error) {
+            window.app.showNotification(error.message, 'error');
         }
     }
 
-    startGameSession(game) {
-        // In a real app, this would initialize the game session
-        console.log('🎮 Starting game session:', game.name);
-        
-        window.app.showNotification(`Memulai ${game.name}...`, 'success');
-        
-        // Simulate game loading
-        setTimeout(() => {
-            window.app.showNotification(`${game.name} siap dimainkan!`, 'success');
-        }, 2000);
+    showGameResult(result) {
+        const resultHTML = `
+            <div class="game-result-modal ${result.isWin ? 'win' : 'lose'}">
+                <div class="result-content">
+                    <div class="result-icon">
+                        <i class="fas fa-${result.isWin ? 'trophy' : 'times'}"></i>
+                    </div>
+                    <h2>${result.isWin ? 'MENANG!' : 'COBA LAGI'}</h2>
+                    <p class="result-amount ${result.isWin ? 'win' : 'lose'}">
+                        ${result.isWin ? '+' : ''}${window.app.formatCurrency(result.winAmount)}
+                    </p>
+                    <p class="result-details">
+                        Bet: ${window.app.formatCurrency(result.betAmount)} | 
+                        Game: ${result.gameName}
+                    </p>
+                    <button class="btn-play-again" onclick="this.closest('.game-result-modal').remove()">
+                        <i class="fas fa-redo"></i>
+                        Main Lagi
+                    </button>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', resultHTML);
     }
 
     playDemo() {
