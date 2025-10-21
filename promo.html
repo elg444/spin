@@ -70,9 +70,9 @@
                                     <span class="balance-label">Saldo Tersedia</span>
                                 </div>
                             </div>
-                            <a href="deposit.html" class="btn-quick-deposit">
+                            <button class="btn-quick-deposit" onclick="quickDeposit()">
                                 <i class="fas fa-plus"></i>
-                            </a>
+                            </button>
                         </div>
 
                         <div class="user-profile">
@@ -146,143 +146,235 @@
         <main class="main-content">
             <div class="container">
                 <!-- Promo Header -->
-                <section class="promo-header">
+                <section class="games-header">
                     <div class="header-content">
                         <h1>Promo & Bonus Menarik</h1>
                         <p>Raih keuntungan lebih dengan promo spesial dari kami</p>
-                        <div class="promo-stats">
+                        <div class="games-stats">
                             <div class="stat">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-gift"></i>
                                 <div>
-                                    <span class="value" id="active-promos">12</span>
+                                    <span class="value" id="active-promos">15+</span>
                                     <span class="label">Promo Aktif</span>
                                 </div>
                             </div>
                             <div class="stat">
-                                <i class="fas fa-gift"></i>
+                                <i class="fas fa-users"></i>
                                 <div>
-                                    <span class="value" id="total-bonus">Rp 89JT</span>
-                                    <span class="label">Bonus Diberikan</span>
+                                    <span class="value" id="bonus-users">5.2k</span>
+                                    <span class="label">User Mendapat Bonus</span>
                                 </div>
                             </div>
                             <div class="stat">
-                                <i class="fas fa-trophy"></i>
+                                <i class="fas fa-coins"></i>
                                 <div>
-                                    <span class="value" id="happy-members">5.2K+</span>
-                                    <span class="label">Member Senang</span>
+                                    <span class="value" id="total-bonus">Rp 250JT</span>
+                                    <span class="label">Bonus Diberikan</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Promo Navigation -->
-                <section class="promo-nav">
-                    <div class="nav-tabs">
-                        <button class="nav-tab active" data-category="all">
-                            <i class="fas fa-th"></i>
-                            Semua Promo
-                        </button>
-                        <button class="nav-tab" data-category="deposit">
-                            <i class="fas fa-money-bill-wave"></i>
-                            Bonus Deposit
-                        </button>
-                        <button class="nav-tab" data-category="cashback">
-                            <i class="fas fa-undo"></i>
-                            Cashback
-                        </button>
-                        <button class="nav-tab" data-category="turnamen">
-                            <i class="fas fa-trophy"></i>
-                            Turnamen
-                        </button>
-                        <button class="nav-tab" data-category="spesial">
-                            <i class="fas fa-star"></i>
-                            Spesial
-                        </button>
-                    </div>
-                </section>
-
-                <!-- Featured Promo -->
-                <section class="featured-promo">
-                    <div class="promo-banner featured">
-                        <div class="banner-content">
-                            <div class="banner-badges">
-                                <span class="badge hot">HOT</span>
-                                <span class="badge limited">TERBATAS</span>
-                            </div>
-                            <h2>Bonus Deposit 150%</h2>
-                            <p>Khusus member baru! Dapatkan bonus 150% untuk deposit pertama Anda</p>
-                            <div class="banner-features">
-                                <div class="feature">
-                                    <i class="fas fa-check"></i>
-                                    <span>Max Bonus Rp 1.000.000</span>
-                                </div>
-                                <div class="feature">
-                                    <i class="fas fa-check"></i>
-                                    <span>Min Deposit Rp 20.000</span>
-                                </div>
-                                <div class="feature">
-                                    <i class="fas fa-check"></i>
-                                    <span>Turnover 15x</span>
-                                </div>
-                            </div>
-                            <div class="banner-actions">
-                                <button class="btn-primary" onclick="claimPromo('new-member-150')">
-                                    <i class="fas fa-gift"></i> Klaim Sekarang
-                                </button>
-                                <button class="btn-secondary" onclick="showPromoDetail('new-member-150')">
-                                    <i class="fas fa-info-circle"></i> Selengkapnya
-                                </button>
-                            </div>
-                        </div>
-                        <div class="banner-graphic">
-                            <div class="graphic-content">
-                                <div class="bonus-percent">150%</div>
-                                <div class="bonus-text">BONUS</div>
-                            </div>
+                <!-- Active Promos -->
+                <section class="promo-section">
+                    <div class="section-header">
+                        <h2>Promo Aktif</h2>
+                        <div class="promo-filter">
+                            <button class="filter-btn active" data-filter="all">Semua</button>
+                            <button class="filter-btn" data-filter="deposit">Deposit</button>
+                            <button class="filter-btn" data-filter="cashback">Cashback</button>
+                            <button class="filter-btn" data-filter="turnover">Turnover</button>
                         </div>
                     </div>
-                </section>
-
-                <!-- Promo Grid -->
-                <section class="promo-grid-section">
-                    <h2>Promo Lainnya</h2>
+                    
                     <div class="promo-grid" id="promo-grid">
-                        <!-- Promo cards will be populated here -->
+                        <!-- New Member Bonus -->
+                        <div class="promo-card primary" data-category="deposit">
+                            <div class="promo-content">
+                                <span class="promo-badge">NEW MEMBER</span>
+                                <div class="promo-header">
+                                    <h3>Bonus 100% Deposit Pertama</h3>
+                                    <div class="promo-badge-hot">HOT</div>
+                                </div>
+                                <p>Khusus member baru, dapatkan bonus 100% untuk deposit pertama Anda</p>
+                                <ul class="promo-features">
+                                    <li><i class="fas fa-check"></i> Min. Deposit Rp 10.000</li>
+                                    <li><i class="fas fa-check"></i> Max Bonus Rp 500.000</li>
+                                    <li><i class="fas fa-check"></i> Turnover 10x</li>
+                                    <li><i class="fas fa-check"></i> Berlaku 7 hari setelah registrasi</li>
+                                </ul>
+                                <div class="promo-actions">
+                                    <button class="btn-promo" onclick="claimBonus('new_member')">
+                                        <i class="fas fa-gift"></i> Klaim Bonus
+                                    </button>
+                                    <button class="btn-terms" onclick="showTerms('new_member')">
+                                        <i class="fas fa-file-alt"></i> Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Daily Cashback -->
+                        <div class="promo-card secondary" data-category="cashback">
+                            <div class="promo-content">
+                                <span class="promo-badge">CASHBACK</span>
+                                <div class="promo-header">
+                                    <h3>Cashback Harian 10%</h3>
+                                    <div class="promo-badge-new">NEW</div>
+                                </div>
+                                <p>Dapatkan cashback 10% setiap hari untuk semua kekalahan Anda</p>
+                                <ul class="promo-features">
+                                    <li><i class="fas fa-check"></i> Min. Turnover 5x</li>
+                                    <li><i class="fas fa-check"></i> Max Cashback Rp 200.000/hari</li>
+                                    <li><i class="fas fa-check"></i> Di proses otomatis jam 00:00</li>
+                                    <li><i class="fas fa-check"></i> Untuk semua game</li>
+                                </ul>
+                                <div class="promo-actions">
+                                    <button class="btn-promo" onclick="claimBonus('cashback')">
+                                        <i class="fas fa-gift"></i> Klaim Bonus
+                                    </button>
+                                    <button class="btn-terms" onclick="showTerms('cashback')">
+                                        <i class="fas fa-file-alt"></i> Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weekend Bonus -->
+                        <div class="promo-card primary" data-category="deposit">
+                            <div class="promo-content">
+                                <span class="promo-badge">WEEKEND</span>
+                                <div class="promo-header">
+                                    <h3>Bonus Weekend 50%</h3>
+                                </div>
+                                <p>Spesial weekend, dapatkan bonus deposit 50% setiap Sabtu & Minggu</p>
+                                <ul class="promo-features">
+                                    <li><i class="fas fa-check"></i> Min. Deposit Rp 50.000</li>
+                                    <li><i class="fas fa-check"></i> Max Bonus Rp 300.000</li>
+                                    <li><i class="fas fa-check"></i> Turnover 8x</li>
+                                    <li><i class="fas fa-check"></i> Berlaku Sabtu & Minggu</li>
+                                </ul>
+                                <div class="promo-actions">
+                                    <button class="btn-promo" onclick="claimBonus('weekend')">
+                                        <i class="fas fa-gift"></i> Klaim Bonus
+                                    </button>
+                                    <button class="btn-terms" onclick="showTerms('weekend')">
+                                        <i class="fas fa-file-alt"></i> Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Turnover Bonus -->
+                        <div class="promo-card secondary" data-category="turnover">
+                            <div class="promo-content">
+                                <span class="promo-badge">TURNOVER</span>
+                                <div class="promo-header">
+                                    <h3>Bonus Turnover Mingguan</h3>
+                                </div>
+                                <p>Dapatkan bonus berdasarkan total turnover mingguan Anda</p>
+                                <ul class="promo-features">
+                                    <li><i class="fas fa-check"></i> Turnover 10jt = Bonus 100rb</li>
+                                    <li><i class="fas fa-check"></i> Turnover 50jt = Bonus 500rb</li>
+                                    <li><i class="fas fa-check"></i> Turnover 100jt = Bonus 1.2jt</li>
+                                    <li><i class="fas fa-check"></i> Di proses setiap Senin</li>
+                                </ul>
+                                <div class="promo-actions">
+                                    <button class="btn-promo" onclick="claimBonus('turnover')">
+                                        <i class="fas fa-gift"></i> Klaim Bonus
+                                    </button>
+                                    <button class="btn-terms" onclick="showTerms('turnover')">
+                                        <i class="fas fa-file-alt"></i> Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Referral Bonus -->
+                        <div class="promo-card primary" data-category="other">
+                            <div class="promo-content">
+                                <span class="promo-badge">REFERRAL</span>
+                                <div class="promo-header">
+                                    <h3>Program Referral 20%</h3>
+                                </div>
+                                <p>Ajak teman bermain dan dapatkan komisi 20% dari kekalahan mereka</p>
+                                <ul class="promo-features">
+                                    <li><i class="fas fa-check"></i> Komisi 20% seumur hidup</li>
+                                    <li><i class="fas fa-check"></i> Min. WD komisi Rp 50.000</li>
+                                    <li><i class="fas fa-check"></i> Tidak ada batas referral</li>
+                                    <li><i class="fas fa-check"></i> Komisi realtime</li>
+                                </ul>
+                                <div class="promo-actions">
+                                    <button class="btn-promo" onclick="showReferral()">
+                                        <i class="fas fa-users"></i> Lihat Link Referral
+                                    </button>
+                                    <button class="btn-terms" onclick="showTerms('referral')">
+                                        <i class="fas fa-file-alt"></i> Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Birthday Bonus -->
+                        <div class="promo-card secondary" data-category="other">
+                            <div class="promo-content">
+                                <span class="promo-badge">BIRTHDAY</span>
+                                <div class="promo-header">
+                                    <h3>Bonus Ulang Tahun</h3>
+                                </div>
+                                <p>Spesial untuk Anda, dapatkan bonus ulang tahun setiap tahunnya</p>
+                                <ul class="promo-features">
+                                    <li><i class="fas fa-check"></i> Bonus Rp 88.000</li>
+                                    <li><i class="fas fa-check"></i> Berlaku di hari ulang tahun</li>
+                                    <li><i class="fas fa-check"></i> Wajib verifikasi KTP</li>
+                                    <li><i class="fas fa-check"></i> Klaim via live chat</li>
+                                </ul>
+                                <div class="promo-actions">
+                                    <button class="btn-promo" onclick="claimBonus('birthday')">
+                                        <i class="fas fa-gift"></i> Klaim Bonus
+                                    </button>
+                                    <button class="btn-terms" onclick="showTerms('birthday')">
+                                        <i class="fas fa-file-alt"></i> Syarat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                <!-- How to Claim -->
-                <section class="claim-guide">
-                    <h2>Cara Klaim Promo</h2>
-                    <div class="guide-steps">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <h3>Pilih Promo</h3>
-                                <p>Pilih promo yang ingin Anda klaim dari daftar promo yang tersedia</p>
+                <!-- Coming Soon Promos -->
+                <section class="promo-section">
+                    <div class="section-header">
+                        <h2>Promo Mendatang</h2>
+                    </div>
+                    
+                    <div class="coming-soon-grid">
+                        <div class="coming-soon-card">
+                            <div class="coming-soon-icon">
+                                <i class="fas fa-calendar-alt"></i>
                             </div>
+                            <h3>Event Bulanan</h3>
+                            <p>Promo spesial setiap bulan dengan hadiah menarik</p>
+                            <span class="coming-soon-badge">Segera Hadir</span>
                         </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <h3>Baca Syarat</h3>
-                                <p>Baca syarat dan ketentuan promo dengan seksama sebelum mengklaim</p>
+
+                        <div class="coming-soon-card">
+                            <div class="coming-soon-icon">
+                                <i class="fas fa-trophy"></i>
                             </div>
+                            <h3>Tournament Game</h3>
+                            <p>Kompetisi game dengan prize pool hingga puluhan juta</p>
+                            <span class="coming-soon-badge">Segera Hadir</span>
                         </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <h3>Klaim Promo</h3>
-                                <p>Klik tombol "Klaim Sekarang" dan ikuti instruksi yang diberikan</p>
+
+                        <div class="coming-soon-card">
+                            <div class="coming-soon-icon">
+                                <i class="fas fa-star"></i>
                             </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <h3>Nikmati Bonus</h3>
-                                <p>Bonus akan langsung aktif setelah proses klaim selesai</p>
-                            </div>
+                            <h3>Loyalty Program</h3>
+                            <p>Program loyalitas dengan reward eksklusif untuk member setia</p>
+                            <span class="coming-soon-badge">Segera Hadir</span>
                         </div>
                     </div>
                 </section>
@@ -330,58 +422,54 @@
         </footer>
     </div>
 
-    <!-- Promo Detail Modal -->
-    <div class="modal promo-modal" id="promo-detail-modal">
+    <!-- Terms Modal -->
+    <div class="modal" id="terms-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="promo-modal-title">Judul Promo</h2>
-                <button class="close-modal">
+                <h2 id="terms-title">Syarat & Ketentuan</h2>
+                <button class="close-modal" onclick="closeTermsModal()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="promo-detail">
-                    <div class="promo-hero">
-                        <div class="promo-badges">
-                            <span class="badge" id="promo-badge-1">NEW</span>
-                            <span class="badge" id="promo-badge-2">HOT</span>
-                        </div>
-                        <div class="promo-percent" id="promo-percent">100%</div>
+                <div id="terms-content">
+                    <!-- Terms content will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-primary" onclick="closeTermsModal()">
+                    <i class="fas fa-check"></i> Mengerti
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Referral Modal -->
+    <div class="modal" id="referral-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Link Referral Anda</h2>
+                <button class="close-modal" onclick="closeReferralModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="referral-content">
+                    <p>Bagikan link berikut kepada teman-teman Anda dan dapatkan komisi 20%:</p>
+                    <div class="referral-link">
+                        <input type="text" id="referral-url" readonly value="https://menang888.com/ref/123456">
+                        <button class="btn-copy" onclick="copyReferralLink()">
+                            <i class="fas fa-copy"></i>
+                        </button>
                     </div>
-
-                    <div class="promo-info">
-                        <p class="promo-description" id="promo-description">Deskripsi promo akan ditampilkan di sini...</p>
-                        
-                        <div class="promo-period">
-                            <h4><i class="fas fa-calendar"></i> Periode Promo</h4>
-                            <p id="promo-period">1 Jan 2024 - 31 Des 2024</p>
+                    <div class="referral-stats">
+                        <div class="stat">
+                            <span class="label">Total Referral</span>
+                            <span class="value">12</span>
                         </div>
-
-                        <div class="promo-benefits">
-                            <h4><i class="fas fa-gift"></i> Keuntungan</h4>
-                            <ul id="promo-benefits">
-                                <li><i class="fas fa-check"></i> Benefit 1</li>
-                                <li><i class="fas fa-check"></i> Benefit 2</li>
-                                <li><i class="fas fa-check"></i> Benefit 3</li>
-                            </ul>
-                        </div>
-
-                        <div class="promo-requirements">
-                            <h4><i class="fas fa-list-alt"></i> Syarat & Ketentuan</h4>
-                            <ul id="promo-requirements">
-                                <li><i class="fas fa-circle"></i> Syarat 1</li>
-                                <li><i class="fas fa-circle"></i> Syarat 2</li>
-                                <li><i class="fas fa-circle"></i> Syarat 3</li>
-                            </ul>
-                        </div>
-
-                        <div class="promo-actions">
-                            <button class="btn-primary" id="btn-claim-promo">
-                                <i class="fas fa-gift"></i> Klaim Promo Ini
-                            </button>
-                            <button class="btn-secondary" onclick="closePromoModal()">
-                                <i class="fas fa-times"></i> Tutup
-                            </button>
+                        <div class="stat">
+                            <span class="label">Total Komisi</span>
+                            <span class="value">Rp 1.250.000</span>
                         </div>
                     </div>
                 </div>
@@ -389,26 +477,8 @@
         </div>
     </div>
 
-    <!-- Claim Success Modal -->
-    <div class="modal success-modal" id="claim-success-modal">
-        <div class="modal-content">
-            <div class="success-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h2>Promo Berhasil Diklaim!</h2>
-            <p id="success-message">Bonus telah berhasil diklaim dan akan segera aktif.</p>
-            <div class="success-actions">
-                <button class="btn-primary" onclick="closeSuccessModal()">
-                    <i class="fas fa-check"></i> Oke
-                </button>
-                <button class="btn-secondary" onclick="goToDeposit()">
-                    <i class="fas fa-money-bill-wave"></i> Deposit Sekarang
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- JavaScript -->
+    <script src="js/api-integration.js"></script>
     <script src="js/app.js"></script>
     <script src="js/security.js"></script>
     <script src="js/router.js"></script>
@@ -430,321 +500,125 @@
             }
 
             initializePromoPage();
-            loadPromos();
         });
 
         function initializePromoPage() {
-            // Tab navigation
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const category = this.dataset.category;
-                    filterPromos(category);
-                });
-            });
-
-            // Modal close events
-            document.querySelectorAll('.close-modal').forEach(btn => {
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const modal = this.closest('.modal');
-                    modal.classList.remove('active');
-                });
-            });
-
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.remove('active');
-                    }
+                    const filter = this.dataset.filter;
+                    
+                    // Update active button
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter promos
+                    filterPromos(filter);
                 });
             });
         }
 
-        function loadPromos() {
-            const promos = [
-                {
-                    id: 'cashback-daily',
-                    title: 'Cashback Harian 10%',
-                    category: 'cashback',
-                    description: 'Dapatkan cashback 10% untuk semua kekalahan setiap hari',
-                    percent: '10%',
-                    badge1: 'DAILY',
-                    badge2: 'CASHBACK',
-                    period: 'Setiap Hari',
-                    benefits: [
-                        'Cashback 10% untuk semua kekalahan',
-                        'Minimal turnover 5x',
-                        'Maksimal cashback Rp 200.000/hari',
-                        'Auto credit setiap jam 00:00'
-                    ],
-                    requirements: [
-                        'Minimal kekalahan Rp 50.000',
-                        'Turnover 5x dari deposit',
-                        ' Berlaku untuk semua game'
-                    ]
-                },
-                {
-                    id: 'deposit-weekly',
-                    title: 'Bonus Deposit Mingguan 50%',
-                    category: 'deposit',
-                    description: 'Bonus deposit 50% setiap minggu untuk member setia',
-                    percent: '50%',
-                    badge1: 'WEEKLY',
-                    badge2: 'BONUS',
-                    period: 'Setiap Senin',
-                    benefits: [
-                        'Bonus 50% untuk deposit mingguan',
-                        'Minimal deposit Rp 100.000',
-                        'Maksimal bonus Rp 500.000',
-                        'Bisa diklaim setiap Senin'
-                    ],
-                    requirements: [
-                        'Minimal deposit Rp 100.000',
-                        'Turnover 10x dari total deposit + bonus',
-                        'Hanya untuk deposit via transfer bank'
-                    ]
-                },
-                {
-                    id: 'turnamen-slot',
-                    title: 'Turnamen Slot Bulanan',
-                    category: 'turnamen',
-                    description: 'Ikuti turnamen slot dan menangkan hadiah total Rp 100 juta',
-                    percent: 'RP 100JT',
-                    badge1: 'TURNamen',
-                    badge2: 'GRAND PRIZE',
-                    period: '1-30 Setiap Bulan',
-                    benefits: [
-                        'Total hadiah Rp 100.000.000',
-                        'Juara 1: Rp 50.000.000',
-                        'Juara 2: Rp 25.000.000',
-                        'Juara 3: Rp 10.000.000',
-                        'Juara 4-10: Rp 1.000.000'
-                    ],
-                    requirements: [
-                        'Minimal bet Rp 1.000 per spin',
-                        'Berlaku untuk semua game slot',
-                        'Peringkat berdasarkan total kemenangan'
-                    ]
-                },
-                {
-                    id: 'birthday-bonus',
-                    title: 'Bonus Ulang Tahun',
-                    category: 'spesial',
-                    description: 'Spesial untuk Anda! Dapatkan bonus ulang tahun spesial',
-                    percent: 'RP 888K',
-                    badge1: 'SPESIAL',
-                    badge2: 'BIRTHDAY',
-                    period: 'Pada hari ulang tahun Anda',
-                    benefits: [
-                        'Bonus spesial Rp 888.000',
-                        'Tanpa turnover requirement',
-                        'Langusng bisa withdraw',
-                        'Khusus member aktif'
-                    ],
-                    requirements: [
-                        'Member aktif minimal 3 bulan',
-                        'Verifikasi data ulang tahun',
-                        'Klaim pada hari ulang tahun'
-                    ]
-                },
-                {
-                    id: 'referral-bonus',
-                    title: 'Bonus Referral 30%',
-                    category: 'spesial',
-                    description: 'Ajak teman bermain dan dapatkan komisi 30%',
-                    percent: '30%',
-                    badge1: 'REFERRAL',
-                    badge2: 'KOMISI',
-                    period: 'Selamanya',
-                    benefits: [
-                        'Komisi 30% dari deposit teman',
-                        'Tanpa batas jumlah referral',
-                        'Komisi langsung cair',
-                        'Bisa withdraw kapan saja'
-                    ],
-                    requirements: [
-                        'Teman harus deposit minimal Rp 50.000',
-                        'Teman harus aktif bermain',
-                        'Komisi dari turnover teman'
-                    ]
-                }
-            ];
-
-            displayPromos(promos);
-        }
-
-        function displayPromos(promos) {
-            const promoGrid = document.getElementById('promo-grid');
+        function filterPromos(filter) {
+            const promos = document.querySelectorAll('.promo-card');
             
-            promoGrid.innerHTML = promos.map(promo => `
-                <div class="promo-card" data-category="${promo.category}">
-                    <div class="promo-header">
-                        <div class="promo-badges">
-                            <span class="badge ${promo.badge1.toLowerCase()}">${promo.badge1}</span>
-                            <span class="badge ${promo.badge2.toLowerCase()}">${promo.badge2}</span>
-                        </div>
-                        <div class="promo-percent">${promo.percent}</div>
-                    </div>
-                    <div class="promo-content">
-                        <h3>${promo.title}</h3>
-                        <p>${promo.description}</p>
-                        <div class="promo-period">
-                            <i class="fas fa-calendar"></i>
-                            <span>${promo.period}</span>
-                        </div>
-                    </div>
-                    <div class="promo-actions">
-                        <button class="btn-primary" onclick="claimPromo('${promo.id}')">
-                            <i class="fas fa-gift"></i> Klaim
-                        </button>
-                        <button class="btn-secondary" onclick="showPromoDetail('${promo.id}')">
-                            <i class="fas fa-info-circle"></i> Detail
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function filterPromos(category) {
-            // Update active tab
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelector(`[data-category="${category}"]`).classList.add('active');
-
-            // Filter promos
-            const promoCards = document.querySelectorAll('.promo-card');
-            promoCards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
+            promos.forEach(promo => {
+                if (filter === 'all' || promo.dataset.category === filter) {
+                    promo.style.display = 'block';
                 } else {
-                    card.style.display = 'none';
+                    promo.style.display = 'none';
                 }
             });
         }
 
-        function showPromoDetail(promoId) {
-            const promos = {
-                'new-member-150': {
-                    title: 'Bonus Deposit 150% Member Baru',
-                    description: 'Spesial untuk member baru! Dapatkan bonus deposit 150% untuk memulai petualangan gaming Anda.',
-                    percent: '150%',
-                    badge1: 'HOT',
-                    badge2: 'TERBATAS',
-                    period: '1 Jan 2024 - 31 Des 2024',
-                    benefits: [
-                        'Bonus 150% untuk deposit pertama',
-                        'Maksimal bonus Rp 1.000.000',
-                        'Minimal deposit Rp 20.000',
-                        'Berlaku untuk semua metode deposit'
-                    ],
-                    requirements: [
-                        'Hanya untuk member baru',
-                        'Turnover 15x dari deposit + bonus',
-                        'Harus klaim dalam 24 jam setelah registrasi',
-                        'Tidak bisa digabung dengan promo lain'
-                    ]
-                },
-                'cashback-daily': {
-                    title: 'Cashback Harian 10%',
-                    description: 'Dapatkan cashback 10% untuk semua kekalahan Anda setiap hari. Bermain lebih tenang dengan jaminan cashback.',
-                    percent: '10%',
-                    badge1: 'DAILY',
-                    badge2: 'CASHBACK',
-                    period: 'Setiap Hari',
-                    benefits: [
-                        'Cashback 10% untuk semua kekalahan',
-                        'Minimal turnover 5x',
-                        'Maksimal cashback Rp 200.000/hari',
-                        'Auto credit setiap jam 00:00'
-                    ],
-                    requirements: [
-                        'Minimal kekalahan Rp 50.000',
-                        'Turnover 5x dari deposit',
-                        'Berlaku untuk semua game'
-                    ]
-                }
-                // Add other promo details here...
-            };
-
-            const promo = promos[promoId];
-            if (!promo) return;
-
-            // Update modal content
-            document.getElementById('promo-modal-title').textContent = promo.title;
-            document.getElementById('promo-description').textContent = promo.description;
-            document.getElementById('promo-percent').textContent = promo.percent;
-            document.getElementById('promo-period').textContent = promo.period;
-
-            // Update badges
-            document.getElementById('promo-badge-1').textContent = promo.badge1;
-            document.getElementById('promo-badge-2').textContent = promo.badge2;
-
-            // Update benefits
-            const benefitsList = document.getElementById('promo-benefits');
-            benefitsList.innerHTML = promo.benefits.map(benefit => 
-                `<li><i class="fas fa-check"></i> ${benefit}</li>`
-            ).join('');
-
-            // Update requirements
-            const requirementsList = document.getElementById('promo-requirements');
-            requirementsList.innerHTML = promo.requirements.map(requirement => 
-                `<li><i class="fas fa-circle"></i> ${requirement}</li>`
-            ).join('');
-
-            // Update claim button
-            const claimBtn = document.getElementById('btn-claim-promo');
-            claimBtn.onclick = () => claimPromo(promoId);
-
-            // Show modal
-            document.getElementById('promo-detail-modal').classList.add('active');
-        }
-
-        function closePromoModal() {
-            document.getElementById('promo-detail-modal').classList.remove('active');
-        }
-
-        function claimPromo(promoId) {
-            const user = window.app.currentUser;
-            
-            // Check if user is logged in
+        function claimBonus(bonusType) {
+            const user = JSON.parse(localStorage.getItem('menang888_current_user'));
             if (!user) {
                 window.app.showNotification('Silakan login terlebih dahulu!', 'error');
                 return;
             }
 
-            // Simulate API call to claim promo
-            window.app.showLoading('Mengklaim promo...');
-
-            setTimeout(() => {
-                window.app.hideLoading();
-                
-                // Show success message based on promo type
-                let successMessage = '';
-                switch(promoId) {
-                    case 'new-member-150':
-                        successMessage = 'Bonus 150% untuk member baru berhasil diklaim! Silakan lakukan deposit untuk mengaktifkan bonus.';
-                        break;
-                    case 'cashback-daily':
-                        successMessage = 'Cashback harian 10% berhasil diaktifkan! Cashback akan otomatis dikreditkan setiap hari.';
-                        break;
-                    default:
-                        successMessage = 'Promo berhasil diklaim! Bonus akan segera aktif.';
-                }
-
-                document.getElementById('success-message').textContent = successMessage;
-                document.getElementById('claim-success-modal').classList.add('active');
-
-                // Log security event
-                window.app.logSecurityEvent('promo_claimed', `User claimed promo: ${promoId}`);
-            }, 1500);
+            switch(bonusType) {
+                case 'new_member':
+                    window.app.showNotification('Bonus new member berhasil diklaim!', 'success');
+                    break;
+                case 'cashback':
+                    window.app.showNotification('Cashback akan diproses otomatis setiap hari', 'info');
+                    break;
+                case 'weekend':
+                    window.app.showNotification('Bonus weekend aktif! Lakukan deposit di hari Sabtu/Minggu', 'success');
+                    break;
+                case 'turnover':
+                    window.app.showNotification('Bonus turnover akan diproses setiap Senin', 'info');
+                    break;
+                case 'birthday':
+                    window.app.showNotification('Hubungi CS untuk klaim bonus ulang tahun', 'info');
+                    break;
+                default:
+                    window.app.showNotification('Bonus berhasil diklaim!', 'success');
+            }
         }
 
-        function closeSuccessModal() {
-            document.getElementById('claim-success-modal').classList.remove('active');
+        function showTerms(bonusType) {
+            const termsContent = document.getElementById('terms-content');
+            let termsHTML = '';
+
+            switch(bonusType) {
+                case 'new_member':
+                    termsHTML = `
+                        <h3>Syarat & Ketentuan Bonus New Member 100%</h3>
+                        <ol>
+                            <li>Bonus hanya untuk member baru yang pertama kali deposit</li>
+                            <li>Minimum deposit Rp 10.000</li>
+                            <li>Maksimum bonus Rp 500.000</li>
+                            <li>Turnover requirement 10x (deposit + bonus)</li>
+                            <li>Bonus berlaku 7 hari setelah registrasi</li>
+                            <li>Tidak bisa digabung dengan promo lainnya</li>
+                            <li>Admin berhak membatalkan bonus jika ditemukan indikasi kecurangan</li>
+                        </ol>
+                    `;
+                    break;
+                case 'cashback':
+                    termsHTML = `
+                        <h3>Syarat & Ketentuan Cashback Harian 10%</h3>
+                        <ol>
+                            <li>Cashback dihitung dari total kekalahan dalam 24 jam</li>
+                            <li>Minimum turnover 5x dari total deposit</li>
+                            <li>Maksimum cashback Rp 200.000 per hari</li>
+                            <li>Cashback diproses otomatis setiap jam 00:00 WIB</li>
+                            <li>Berlaku untuk semua jenis permainan</li>
+                            <li>Tidak ada turnover requirement untuk cashback</li>
+                            <li>Cashback bisa langsung diwithdraw</li>
+                        </ol>
+                    `;
+                    break;
+                default:
+                    termsHTML = `<p>Syarat dan ketentuan untuk promo ini sedang dalam persiapan.</p>`;
+            }
+
+            termsContent.innerHTML = termsHTML;
+            document.getElementById('terms-modal').classList.add('active');
         }
 
-        function goToDeposit() {
-            closeSuccessModal();
+        function closeTermsModal() {
+            document.getElementById('terms-modal').classList.remove('active');
+        }
+
+        function showReferral() {
+            document.getElementById('referral-modal').classList.add('active');
+        }
+
+        function closeReferralModal() {
+            document.getElementById('referral-modal').classList.remove('active');
+        }
+
+        function copyReferralLink() {
+            const referralInput = document.getElementById('referral-url');
+            referralInput.select();
+            document.execCommand('copy');
+            window.app.showNotification('Link referral berhasil disalin!', 'success');
+        }
+
+        function quickDeposit() {
             window.location.href = 'deposit.html';
         }
 
@@ -754,370 +628,87 @@
     </script>
 
     <style>
-        /* Promo Page Specific Styles */
-        .promo-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 0;
-        }
-
-        .promo-header h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-        }
-
-        .promo-header p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-        }
-
-        .promo-stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .promo-stats .stat {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 20px;
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: var(--border-radius);
-            min-width: 180px;
-        }
-
-        .promo-stats .stat i {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        .promo-stats .value {
-            display: block;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .promo-stats .label {
-            display: block;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        /* Promo Navigation */
-        .promo-nav {
-            margin-bottom: 30px;
-        }
-
-        .nav-tabs {
+        /* Promo page specific styles */
+        .promo-filter {
             display: flex;
             gap: 10px;
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: var(--border-radius-lg);
-            padding: 10px;
-            flex-wrap: wrap;
         }
 
-        .nav-tab {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            background: transparent;
-            border: none;
+        .filter-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: var(--border-radius);
             color: var(--text-secondary);
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 500;
+            font-size: 0.9rem;
         }
 
-        .nav-tab:hover {
-            background: rgba(255,255,255,0.05);
-            color: var(--text-primary);
-        }
-
-        .nav-tab.active {
-            background: var(--gradient-primary);
+        .filter-btn.active {
+            background: var(--primary);
             color: white;
-            box-shadow: var(--glow-primary);
-        }
-
-        /* Featured Promo */
-        .featured-promo {
-            margin-bottom: 40px;
-        }
-
-        .promo-banner.featured {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            color: white;
-        }
-
-        .banner-content {
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .banner-badges {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .banner-badges .badge {
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .badge.hot {
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .badge.limited {
-            background: rgba(239, 71, 111, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .banner-content h2 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .banner-content p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .banner-features {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .feature i {
-            color: var(--warning);
-        }
-
-        .banner-actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        .banner-graphic {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            background: rgba(255,255,255,0.1);
-        }
-
-        .graphic-content {
-            text-align: center;
-        }
-
-        .bonus-percent {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-
-        .bonus-text {
-            font-size: 1.5rem;
-            font-weight: 600;
-            opacity: 0.9;
-        }
-
-        /* Promo Grid */
-        .promo-grid-section {
-            margin-bottom: 50px;
-        }
-
-        .promo-grid-section h2 {
-            font-size: 2rem;
-            margin-bottom: 25px;
-            color: var(--text-primary);
-        }
-
-        .promo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-        }
-
-        .promo-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .promo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
             border-color: var(--primary);
         }
 
         .promo-header {
-            padding: 25px 25px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .promo-badges {
-            display: flex;
-            gap: 8px;
-        }
-
-        .promo-badges .badge {
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .badge.daily {
-            background: var(--gradient-success);
-            color: white;
-        }
-
-        .badge.weekly {
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        .badge.turnamen {
-            background: var(--gradient-warning);
-            color: black;
-        }
-
-        .badge.spesial {
-            background: var(--gradient-danger);
-            color: white;
-        }
-
-        .badge.referral {
-            background: var(--gradient-info);
-            color: white;
-        }
-
-        .badge.cashback {
-            background: var(--gradient-success);
-            color: white;
-        }
-
-        .badge.bonus {
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        .promo-percent {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .promo-content {
-            padding: 0 25px 25px;
-        }
-
-        .promo-content h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-        }
-
-        .promo-content p {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .promo-period {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+            justify-content: between;
+            margin-bottom: 10px;
+        }
+
+        .promo-badge-hot, .promo-badge-new {
+            background: var(--danger);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .promo-badge-new {
+            background: var(--success);
         }
 
         .promo-actions {
-            padding: 20px 25px;
-            background: rgba(255,255,255,0.05);
-            border-top: 1px solid rgba(255,255,255,0.1);
             display: flex;
             gap: 10px;
+            margin-top: 20px;
         }
 
-        .promo-actions .btn-primary,
-        .promo-actions .btn-secondary {
-            flex: 1;
+        .btn-terms {
+            padding: 10px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
-        /* Claim Guide */
-        .claim-guide {
+        .btn-terms:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Coming Soon Grid */
+        .coming-soon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .coming-soon-card {
             background: var(--bg-card);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: var(--border-radius-lg);
-            padding: 40px;
-            margin-bottom: 40px;
-        }
-
-        .claim-guide h2 {
+            padding: 25px;
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: var(--text-primary);
+            position: relative;
         }
 
-        .guide-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .step {
-            text-align: center;
-        }
-
-        .step-number {
+        .coming-soon-icon {
             width: 60px;
             height: 60px;
             background: var(--gradient-primary);
@@ -1125,193 +716,87 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto 15px;
             font-size: 1.5rem;
-            font-weight: 700;
             color: white;
-            margin: 0 auto 20px;
-            box-shadow: var(--glow-primary);
         }
 
-        .step-content h3 {
+        .coming-soon-card h3 {
             font-size: 1.2rem;
             margin-bottom: 10px;
             color: var(--text-primary);
         }
 
-        .step-content p {
+        .coming-soon-card p {
             color: var(--text-secondary);
-            line-height: 1.5;
+            margin-bottom: 15px;
         }
 
-        /* Promo Detail Modal */
-        .promo-modal .modal-content {
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
+        .coming-soon-badge {
+            background: var(--warning);
+            color: black;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
-        .promo-hero {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            padding: 30px;
-            text-align: center;
+        /* Referral Styles */
+        .referral-link {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .referral-link input {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+        }
+
+        .btn-copy {
+            padding: 12px 15px;
+            background: var(--primary);
+            border: none;
+            border-radius: var(--border-radius);
             color: white;
-            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .promo-badges {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 20px;
+        .btn-copy:hover {
+            background: var(--primary-light);
         }
 
-        .promo-percent {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1;
-        }
-
-        .promo-info {
-            padding: 30px;
-        }
-
-        .promo-description {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .promo-period,
-        .promo-benefits,
-        .promo-requirements {
-            margin-bottom: 25px;
-        }
-
-        .promo-period h4,
-        .promo-benefits h4,
-        .promo-requirements h4 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .promo-period p {
-            color: var(--text-secondary);
-            padding-left: 30px;
-        }
-
-        .promo-benefits ul,
-        .promo-requirements ul {
-            list-style: none;
-            padding-left: 30px;
-        }
-
-        .promo-benefits li,
-        .promo-requirements li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            color: var(--text-secondary);
-        }
-
-        .promo-benefits i {
-            color: var(--success);
-            margin-top: 2px;
-        }
-
-        .promo-requirements i {
-            color: var(--warning);
-            font-size: 0.6rem;
-            margin-top: 6px;
-        }
-
-        .promo-actions {
-            display: flex;
+        .referral-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
-        /* Success Modal */
-        .success-modal .modal-content {
-            max-width: 500px;
+        .referral-stats .stat {
             text-align: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--border-radius);
         }
 
-        .success-icon {
-            font-size: 4rem;
-            color: var(--success);
-            margin-bottom: 20px;
-        }
-
-        .success-modal h2 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .success-modal p {
+        .referral-stats .label {
+            display: block;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            margin-bottom: 25px;
-            line-height: 1.6;
+            margin-bottom: 5px;
         }
 
-        .success-actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .promo-stats {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .promo-banner.featured {
-                grid-template-columns: 1fr;
-            }
-            
-            .banner-actions {
-                flex-direction: column;
-            }
-            
-            .promo-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .guide-steps {
-                grid-template-columns: 1fr;
-            }
-            
-            .promo-actions {
-                flex-direction: column;
-            }
-            
-            .success-actions {
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .promo-header h1 {
-                font-size: 2rem;
-            }
-            
-            .nav-tabs {
-                flex-direction: column;
-            }
-            
-            .banner-content {
-                padding: 25px;
-            }
-            
-            .banner-content h2 {
-                font-size: 1.8rem;
-            }
+        .referral-stats .value {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
         }
     </style>
 </body>
