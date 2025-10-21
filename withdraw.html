@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                             <a href="deposit.html" class="btn-quick-deposit">
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-exchange-alt"></i>
                             </a>
                         </div>
 
@@ -146,15 +146,15 @@
         <main class="main-content">
             <div class="container">
                 <!-- Withdraw Header -->
-                <section class="withdraw-header">
+                <section class="deposit-header">
                     <div class="header-content">
-                        <h1>Tarik Saldo</h1>
-                        <p>Tarik kemenangan Anda dengan mudah dan cepat</p>
-                        <div class="withdraw-stats">
+                        <h1>Withdraw Saldo</h1>
+                        <p>Tarik kemenangan Anda dengan cepat dan aman</p>
+                        <div class="deposit-stats">
                             <div class="stat">
-                                <i class="fas fa-bolt"></i>
+                                <i class="fas fa-clock"></i>
                                 <div>
-                                    <span class="value">1-10 Menit</span>
+                                    <span class="value">1-3 Jam</span>
                                     <span class="label">Proses Cepat</span>
                                 </div>
                             </div>
@@ -166,75 +166,108 @@
                                 </div>
                             </div>
                             <div class="stat">
-                                <i class="fas fa-check-circle"></i>
+                                <i class="fas fa-badge-check"></i>
                                 <div>
-                                    <span class="value">No Fee</span>
-                                    <span class="label">Tanpa Biaya</span>
+                                    <span class="value">24/7</span>
+                                    <span class="label">Layanan</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Withdraw Form Section -->
-                <section class="withdraw-form-section">
+                <!-- Withdraw Methods -->
+                <section class="deposit-methods">
+                    <h2>Metode Penarikan</h2>
+                    <div class="methods-grid">
+                        <div class="method-card active" data-method="bank">
+                            <div class="method-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="method-info">
+                                <h3>Transfer Bank</h3>
+                                <p>Transfer antar bank lokal</p>
+                            </div>
+                            <div class="method-badge">Populer</div>
+                        </div>
+
+                        <div class="method-card" data-method="ewallet">
+                            <div class="method-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="method-info">
+                                <h3>E-Wallet</h3>
+                                <p>OVO, GoPay, Dana, LinkAja</p>
+                            </div>
+                            <div class="method-badge">Cepat</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Withdraw Form -->
+                <section class="deposit-form-section">
                     <div class="form-container">
                         <div class="form-header">
                             <h3>Form Withdraw</h3>
-                            <div class="user-bank-info">
-                                <div class="bank-card">
-                                    <div class="bank-icon">
-                                        <i class="fas fa-university"></i>
-                                    </div>
-                                    <div class="bank-details">
-                                        <h4 id="user-bank-name">-</h4>
-                                        <p id="user-bank-account">-</p>
-                                        <span id="user-bank-holder">-</span>
-                                    </div>
-                                    <button class="btn-change-bank" onclick="changeBankInfo()">
-                                        <i class="fas fa-edit"></i> Ubah
-                                    </button>
-                                </div>
+                            <div class="form-steps">
+                                <div class="step active">1. Pilih Metode</div>
+                                <div class="step">2. Isi Data</div>
+                                <div class="step">3. Konfirmasi</div>
                             </div>
                         </div>
 
-                        <form class="withdraw-form" id="withdraw-form">
-                            <div class="form-group">
-                                <label for="withdraw-amount">Jumlah Withdraw</label>
-                                <div class="amount-input">
-                                    <span class="currency">Rp</span>
-                                    <input type="number" id="withdraw-amount" placeholder="0" min="50000" step="1000" required>
+                        <form class="deposit-form" id="withdraw-form">
+                            <!-- Bank Transfer Form -->
+                            <div class="form-section active" id="bank-form">
+                                <div class="form-group">
+                                    <label for="withdraw-amount">Jumlah Withdraw</label>
+                                    <div class="amount-input">
+                                        <span class="currency">Rp</span>
+                                        <input type="number" id="withdraw-amount" placeholder="0" min="50000" step="1000" required>
+                                    </div>
+                                    <div class="amount-presets">
+                                        <button type="button" class="amount-btn" data-amount="50000">50K</button>
+                                        <button type="button" class="amount-btn" data-amount="100000">100K</button>
+                                        <button type="button" class="amount-btn" data-amount="500000">500K</button>
+                                        <button type="button" class="amount-btn" data-amount="1000000">1JT</button>
+                                    </div>
                                 </div>
-                                <div class="amount-presets">
-                                    <button type="button" class="amount-btn" data-amount="50000">50K</button>
-                                    <button type="button" class="amount-btn" data-amount="100000">100K</button>
-                                    <button type="button" class="amount-btn" data-amount="500000">500K</button>
-                                    <button type="button" class="amount-btn" data-amount="1000000">1JT</button>
-                                    <button type="button" class="amount-btn" data-amount="5000000">5JT</button>
+
+                                <div class="form-group">
+                                    <label for="withdraw-bank">Pilih Bank</label>
+                                    <select id="withdraw-bank" class="form-control" required>
+                                        <option value="">-- Pilih Bank --</option>
+                                        <option value="bca">BCA</option>
+                                        <option value="bni">BNI</option>
+                                        <option value="bri">BRI</option>
+                                        <option value="mandiri">Mandiri</option>
+                                    </select>
                                 </div>
-                                <div class="balance-info">
-                                    <span>Saldo Tersedia: <strong id="available-balance">Rp 0</strong></span>
-                                    <button type="button" class="btn-max" onclick="setMaxAmount()">MAX</button>
+
+                                <div class="form-group">
+                                    <label for="account-number">Nomor Rekening</label>
+                                    <input type="text" id="account-number" class="form-control" placeholder="Masukkan nomor rekening" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="account-name">Nama Pemilik Rekening</label>
+                                    <input type="text" id="account-name" class="form-control" placeholder="Nama sesuai rekening" required>
+                                </div>
+
+                                <div class="fee-info">
+                                    <h4><i class="fas fa-info-circle"></i> Informasi Biaya</h4>
+                                    <p>Biaya admin withdraw: <strong>Rp 2.500</strong></p>
+                                    <div class="fee-amount" id="fee-amount">Total Diterima: Rp 0</div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="withdraw-pin">PIN Withdraw</label>
-                                <input type="password" id="withdraw-pin" placeholder="Masukkan PIN withdraw" maxlength="6" required>
-                                <div class="pin-info">
-                                    <i class="fas fa-info-circle"></i>
-                                    <span>PIN default: 123456 (ubah di halaman profile)</span>
+                            <!-- E-Wallet Form -->
+                            <div class="form-section" id="ewallet-form">
+                                <div class="coming-soon">
+                                    <i class="fas fa-tools"></i>
+                                    <h3>Fitur E-Wallet Segera Hadir</h3>
+                                    <p>Kami sedang menyiapkan metode penarikan e-wallet untuk kenyamanan Anda.</p>
                                 </div>
-                            </div>
-
-                            <div class="withdraw-info">
-                                <h4><i class="fas fa-info-circle"></i> Informasi Withdraw</h4>
-                                <ul>
-                                    <li>Minimum withdraw: <strong>Rp 50.000</strong></li>
-                                    <li>Maksimum withdraw: <strong>Rp 50.000.000</strong></li>
-                                    <li>Proses: <strong>1-10 menit</strong> (kerja bank)</li>
-                                    <li>Biaya: <strong>Gratis</strong> tanpa potongan</li>
-                                </ul>
                             </div>
 
                             <div class="form-actions">
@@ -248,15 +281,28 @@
                         </form>
                     </div>
 
-                    <!-- Withdraw History -->
-                    <div class="withdraw-history">
-                        <h3>Riwayat Withdraw</h3>
-                        <div class="history-list" id="withdraw-history">
-                            <!-- History items will be populated here -->
+                    <!-- Withdraw Info -->
+                    <div class="bank-accounts">
+                        <h3>Informasi Withdraw</h3>
+                        
+                        <div class="withdraw-guide">
+                            <h4><i class="fas fa-info-circle"></i> Panduan Withdraw</h4>
+                            <ol>
+                                <li>Minimum withdraw: <strong>Rp 50.000</strong></li>
+                                <li>Maksimum withdraw: <strong>Rp 50.000.000 per hari</strong></li>
+                                <li>Biaya admin: <strong>Rp 2.500 per transaksi</strong></li>
+                                <li>Proses: <strong>1-3 jam (kecuali maintenance)</strong></li>
+                                <li>Pastikan data rekening sudah benar</li>
+                            </ol>
                         </div>
-                        <div class="history-empty" id="history-empty">
-                            <i class="fas fa-history"></i>
-                            <p>Belum ada riwayat withdraw</p>
+
+                        <div class="withdraw-schedule">
+                            <h4><i class="fas fa-clock"></i> Jadwal Proses</h4>
+                            <ul>
+                                <li><strong>Senin - Jumat:</strong> 08:00 - 22:00 WIB</li>
+                                <li><strong>Sabtu - Minggu:</strong> 09:00 - 18:00 WIB</li>
+                                <li>Withdraw di luar jam akan diproses keesokan hari</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -304,54 +350,6 @@
         </footer>
     </div>
 
-    <!-- Change Bank Modal -->
-    <div class="modal bank-modal" id="change-bank-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Ubah Informasi Bank</h2>
-                <button class="close-modal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="bank-form" id="bank-form">
-                    <div class="form-group">
-                        <label for="new-bank">Pilih Bank</label>
-                        <select id="new-bank" class="form-control" required>
-                            <option value="">-- Pilih Bank --</option>
-                            <option value="bca">BCA</option>
-                            <option value="bni">BNI</option>
-                            <option value="bri">BRI</option>
-                            <option value="mandiri">Mandiri</option>
-                            <option value="cimb">CIMB</option>
-                            <option value="danamon">Danamon</option>
-                            <option value="permata">Permata</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="new-account">Nomor Rekening</label>
-                        <input type="text" id="new-account" placeholder="Masukkan nomor rekening" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="new-holder">Nama Pemilik Rekening</label>
-                        <input type="text" id="new-holder" placeholder="Nama sesuai rekening" required>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn-secondary" onclick="closeBankModal()">
-                            Batal
-                        </button>
-                        <button type="submit" class="btn-primary">
-                            Simpan Perubahan
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Withdraw Success Modal -->
     <div class="modal success-modal" id="withdraw-success-modal">
         <div class="modal-content">
@@ -359,23 +357,19 @@
                 <i class="fas fa-check-circle"></i>
             </div>
             <h2>Withdraw Berhasil Dikirim!</h2>
-            <p>Permintaan withdraw Anda telah dikirim dan sedang diproses. Dana akan masuk dalam 1-10 menit.</p>
-            <div class="withdraw-details">
+            <p>Permintaan withdraw Anda telah dikirim dan sedang diproses. Dana akan ditransfer dalam 1-3 jam.</p>
+            <div class="deposit-details">
                 <div class="detail-item">
                     <span>Jumlah Withdraw:</span>
                     <strong id="success-amount">Rp 0</strong>
                 </div>
                 <div class="detail-item">
-                    <span>Rekening Tujuan:</span>
-                    <strong id="success-bank">-</strong>
+                    <span>Biaya Admin:</span>
+                    <strong id="success-fee">Rp 0</strong>
                 </div>
-                <div class="detail-item">
-                    <span>No. Rekening:</span>
-                    <strong id="success-account">-</strong>
-                </div>
-                <div class="detail-item">
-                    <span>Estimasi:</span>
-                    <strong>1-10 menit</strong>
+                <div class="detail-item total">
+                    <span>Total Diterima:</span>
+                    <strong id="success-total">Rp 0</strong>
                 </div>
             </div>
             <div class="modal-actions">
@@ -387,6 +381,7 @@
     </div>
 
     <!-- JavaScript -->
+    <script src="js/api-integration.js"></script>
     <script src="js/app.js"></script>
     <script src="js/security.js"></script>
     <script src="js/router.js"></script>
@@ -397,12 +392,8 @@
             // Update user info
             if (window.app && window.app.currentUser) {
                 document.getElementById('balance-amount').textContent = window.app.formatCurrency(window.app.currentUser.balance);
-                document.getElementById('available-balance').textContent = window.app.formatCurrency(window.app.currentUser.balance);
                 document.getElementById('username-display').textContent = window.app.currentUser.username;
                 document.getElementById('user-id-display').textContent = `ID: ${window.app.currentUser.id}`;
-                
-                // Update bank info
-                updateBankInfo();
                 
                 // Update avatar color
                 const avatar = document.getElementById('user-avatar');
@@ -412,108 +403,62 @@
             }
 
             initializeWithdrawPage();
-            loadWithdrawHistory();
         });
 
         function initializeWithdrawPage() {
+            // Method selection
+            document.querySelectorAll('.method-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const method = this.dataset.method;
+                    selectWithdrawMethod(method);
+                });
+            });
+
             // Amount presets
             document.querySelectorAll('.amount-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const amount = this.dataset.amount;
                     document.getElementById('withdraw-amount').value = amount;
+                    calculateFee();
                 });
             });
+
+            // Amount input change
+            document.getElementById('withdraw-amount').addEventListener('input', calculateFee);
 
             // Form submission
             document.getElementById('withdraw-form').addEventListener('submit', handleWithdrawSubmit);
+        }
 
-            // Bank form submission
-            document.getElementById('bank-form').addEventListener('submit', handleBankChange);
-
-            // Modal close events
-            document.querySelectorAll('.close-modal').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const modal = this.closest('.modal');
-                    modal.classList.remove('active');
-                });
+        function selectWithdrawMethod(method) {
+            // Update active method card
+            document.querySelectorAll('.method-card').forEach(card => {
+                card.classList.remove('active');
             });
+            document.querySelector(`[data-method="${method}"]`).classList.add('active');
 
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.remove('active');
-                    }
-                });
+            // Show corresponding form
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
             });
+            document.getElementById(`${method}-form`).classList.add('active');
         }
 
-        function updateBankInfo() {
-            const user = window.app.currentUser;
-            if (user && user.bankName && user.bankAccount) {
-                document.getElementById('user-bank-name').textContent = user.bankName.toUpperCase();
-                document.getElementById('user-bank-account').textContent = user.bankAccount;
-                document.getElementById('user-bank-holder').textContent = user.username;
-            }
+        function calculateFee() {
+            const amount = parseInt(document.getElementById('withdraw-amount').value) || 0;
+            const fee = 2500; // Biaya admin tetap
+            const total = amount - fee;
+
+            document.getElementById('fee-amount').textContent = `Total Diterima: ${window.app.formatCurrency(total)}`;
         }
 
-        function changeBankInfo() {
-            const user = window.app.currentUser;
-            if (user) {
-                document.getElementById('new-bank').value = user.bankName || '';
-                document.getElementById('new-account').value = user.bankAccount || '';
-                document.getElementById('new-holder').value = user.username || '';
-            }
-            document.getElementById('change-bank-modal').classList.add('active');
-        }
-
-        function closeBankModal() {
-            document.getElementById('change-bank-modal').classList.remove('active');
-        }
-
-        function handleBankChange(event) {
-            event.preventDefault();
-            
-            const bank = document.getElementById('new-bank').value;
-            const account = document.getElementById('new-account').value;
-            const holder = document.getElementById('new-holder').value;
-
-            if (!bank || !account || !holder) {
-                window.app.showNotification('Semua field harus diisi!', 'error');
-                return;
-            }
-
-            // Update user data
-            window.app.currentUser.bankName = bank;
-            window.app.currentUser.bankAccount = account;
-            
-            // Save to localStorage
-            localStorage.setItem('menang888_current_user', JSON.stringify(window.app.currentUser));
-            
-            // Update user in users array
-            const userIndex = window.app.users.findIndex(u => u.id === window.app.currentUser.id);
-            if (userIndex !== -1) {
-                window.app.users[userIndex] = window.app.currentUser;
-                window.app.saveUsers();
-            }
-
-            // Update display
-            updateBankInfo();
-            closeBankModal();
-            
-            window.app.showNotification('Informasi bank berhasil diupdate!', 'success');
-        }
-
-        function setMaxAmount() {
-            const maxAmount = window.app.currentUser.balance;
-            document.getElementById('withdraw-amount').value = maxAmount;
-        }
-
-        function handleWithdrawSubmit(event) {
+        async function handleWithdrawSubmit(event) {
             event.preventDefault();
             
             const amount = parseInt(document.getElementById('withdraw-amount').value);
-            const pin = document.getElementById('withdraw-pin').value;
-            const user = window.app.currentUser;
+            const bank = document.getElementById('withdraw-bank').value;
+            const accountNumber = document.getElementById('account-number').value;
+            const accountName = document.getElementById('account-name').value;
 
             // Validation
             if (!amount || amount < 50000) {
@@ -521,116 +466,52 @@
                 return;
             }
 
-            if (amount > 50000000) {
-                window.app.showNotification('Maksimum withdraw Rp 50.000.000!', 'error');
+            if (!bank) {
+                window.app.showNotification('Pilih bank terlebih dahulu!', 'error');
                 return;
             }
 
-            if (amount > user.balance) {
-                window.app.showNotification('Saldo tidak mencukupi!', 'error');
+            if (!accountNumber) {
+                window.app.showNotification('Masukkan nomor rekening!', 'error');
                 return;
             }
 
-            if (!pin || pin !== '123456') { // Default PIN, in real app this should be hashed
-                window.app.showNotification('PIN withdraw salah!', 'error');
+            if (!accountName) {
+                window.app.showNotification('Masukkan nama pemilik rekening!', 'error');
                 return;
             }
 
-            if (!user.bankName || !user.bankAccount) {
-                window.app.showNotification('Silakan lengkapi informasi bank terlebih dahulu!', 'error');
-                changeBankInfo();
+            const currentUser = JSON.parse(localStorage.getItem('menang888_current_user'));
+            if (currentUser.balance < amount) {
+                window.app.showNotification('Saldo tidak cukup!', 'error');
                 return;
             }
 
-            // Process withdraw
-            processWithdraw(amount);
-        }
+            try {
+                // Use API for withdraw
+                const result = await window.app.withdraw(amount, 'bank', currentUser.phone);
+                
+                if (result.success) {
+                    // Calculate fee and total
+                    const fee = 2500;
+                    const total = amount - fee;
 
-        function processWithdraw(amount) {
-    const user = window.app.currentUser;
+                    // Show success modal
+                    document.getElementById('success-amount').textContent = window.app.formatCurrency(amount);
+                    document.getElementById('success-fee').textContent = window.app.formatCurrency(fee);
+                    document.getElementById('success-total').textContent = window.app.formatCurrency(total);
+                    document.getElementById('withdraw-success-modal').classList.add('active');
 
-    // Create withdraw transaction
-    const transaction = {
-        id: 'WD' + Date.now(),
-        userId: user.id,
-        username: user.username,
-        amount: amount,
-        bankName: user.bankName,
-        bankAccount: user.bankAccount,
-        status: 'pending',
-        createdAt: new Date().toISOString(),
-        processedAt: null
-    };
+                    // Log transaction
+                    window.app.logSecurityEvent('withdraw_request', `User requested withdraw: ${amount}`);
 
-    // Save transaction
-    const transactions = JSON.parse(localStorage.getItem('menang888_withdraws')) || [];
-    transactions.push(transaction);
-    localStorage.setItem('menang888_withdraws', JSON.stringify(transactions));
-
-    // Deduct balance (will be reversed if rejected)
-    user.balance -= amount;
-    localStorage.setItem('menang888_current_user', JSON.stringify(user));
-
-    // Update user in users array
-    const userIndex = window.app.users.findIndex(u => u.id === user.id);
-    if (userIndex !== -1) {
-        window.app.users[userIndex] = user;
-        window.app.saveUsers();
-    }
-
-    // Show success modal
-    document.getElementById('success-amount').textContent = window.app.formatCurrency(amount);
-    document.getElementById('success-bank').textContent = user.bankName.toUpperCase();
-    document.getElementById('success-account').textContent = user.bankAccount;
-    document.getElementById('withdraw-success-modal').classList.add('active');
-
-    // Log security event
-    window.app.logSecurityEvent('withdraw_request', `User requested withdraw: ${amount}`);
-
-    // Reset form and update display
-    document.getElementById('withdraw-form').reset();
-    document.getElementById('balance-amount').textContent = window.app.formatCurrency(user.balance);
-    document.getElementById('available-balance').textContent = window.app.formatCurrency(user.balance);
-
-    // Reload history
-    loadWithdrawHistory();
-}
-
-        function loadWithdrawHistory() {
-            const transactions = JSON.parse(localStorage.getItem('menang888_withdraws')) || [];
-            const userTransactions = transactions.filter(t => t.userId === window.app.currentUser.id);
-            const historyList = document.getElementById('withdraw-history');
-            const emptyState = document.getElementById('history-empty');
-
-            if (userTransactions.length === 0) {
-                historyList.style.display = 'none';
-                emptyState.style.display = 'block';
-                return;
+                    // Reset form
+                    document.getElementById('withdraw-form').reset();
+                    calculateFee();
+                }
+            } catch (error) {
+                window.app.showNotification('Error processing withdraw: ' + error.message, 'error');
             }
-
-            historyList.style.display = 'block';
-            emptyState.style.display = 'none';
-
-            // Show last 5 transactions
-            const recentTransactions = userTransactions.slice(-5).reverse();
-            
-            historyList.innerHTML = recentTransactions.map(transaction => `
-                <div class="history-item ${transaction.status}">
-                    <div class="transaction-info">
-                        <div class="transaction-amount">
-                            <strong>${window.app.formatCurrency(transaction.amount)}</strong>
-                            <span class="transaction-date">${new Date(transaction.createdAt).toLocaleDateString('id-ID')}</span>
-                        </div>
-                        <div class="transaction-details">
-                            <span>${transaction.bankName} - ${transaction.bankAccount}</span>
-                            <span class="transaction-status ${transaction.status}">
-                                ${transaction.status === 'pending' ? 'Diproses' : 
-                                  transaction.status === 'completed' ? 'Selesai' : 'Ditolak'}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
         }
 
         function closeSuccessModal() {
@@ -643,251 +524,38 @@
     </script>
 
     <style>
-        /* Withdraw Page Specific Styles */
-        .withdraw-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 0;
-        }
-
-        .withdraw-header h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-        }
-
-        .withdraw-header p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-        }
-
-        .withdraw-stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .withdraw-stats .stat {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 20px;
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: var(--border-radius);
-            min-width: 180px;
-        }
-
-        .withdraw-stats .stat i {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        .withdraw-stats .value {
-            display: block;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .withdraw-stats .label {
-            display: block;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        /* Withdraw Form Section */
-        .withdraw-form-section {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        .form-container {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-        }
-
-        .form-header {
-            padding: 25px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            background: var(--bg-elevated);
-        }
-
-        .form-header h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
-
-        .user-bank-info {
-            margin-top: 15px;
-        }
-
-        .bank-card {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .bank-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-primary);
-            border-radius: var(--border-radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        .bank-details {
-            flex: 1;
-        }
-
-        .bank-details h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--text-primary);
-        }
-
-        .bank-details p {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 2px;
-            color: var(--text-primary);
-        }
-
-        .bank-details span {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .btn-change-bank {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: var(--border-radius);
-            color: var(--text-primary);
-            padding: 8px 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .btn-change-bank:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateY(-1px);
-        }
-
-        .withdraw-form {
-            padding: 25px;
-        }
-
-        .amount-input {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        .currency {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .amount-input input {
-            width: 100%;
-            padding: 15px 15px 15px 45px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: var(--border-radius);
-            color: var(--text-primary);
-        }
-
-        .amount-presets {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-
-        .amount-btn {
-            padding: 8px 15px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: var(--border-radius);
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .amount-btn:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--text-primary);
-        }
-
-        .balance-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            color: var(--text-secondary);
-        }
-
-        .btn-max {
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: var(--border-radius);
-            color: var(--primary);
-            padding: 4px 8px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-max:hover {
-            background: rgba(99, 102, 241, 0.2);
-        }
-
-        .pin-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 8px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .pin-info i {
-            color: var(--warning);
-        }
-
-        .withdraw-info {
-            background: rgba(255,255,255,0.05);
+        /* Withdraw specific styles */
+        .fee-info {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: var(--border-radius);
             padding: 20px;
             margin: 20px 0;
         }
 
-        .withdraw-info h4 {
+        .fee-info h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--info);
+        }
+
+        .fee-amount {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--info);
+            margin-top: 10px;
+        }
+
+        .withdraw-guide, .withdraw-schedule {
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .withdraw-guide h4, .withdraw-schedule h4 {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -895,206 +563,18 @@
             color: var(--text-primary);
         }
 
-        .withdraw-info ul {
-            list-style: none;
-        }
-
-        .withdraw-info li {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .withdraw-info li:last-child {
-            border-bottom: none;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        .form-actions .btn-primary,
-        .form-actions .btn-secondary {
-            flex: 1;
-        }
-
-        /* Withdraw History */
-        .withdraw-history {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: var(--border-radius-lg);
-            padding: 25px;
-            height: fit-content;
-        }
-
-        .withdraw-history h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
-
-        .history-list {
-            display: none;
-        }
-
-        .history-item {
-            padding: 15px;
-            background: rgba(255,255,255,0.05);
-            border-radius: var(--border-radius);
-            margin-bottom: 10px;
-            border-left: 4px solid var(--warning);
-        }
-
-        .history-item.completed {
-            border-left-color: var(--success);
-        }
-
-        .history-item.rejected {
-            border-left-color: var(--danger);
-        }
-
-        .transaction-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .transaction-amount strong {
-            display: block;
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 5px;
-        }
-
-        .transaction-date {
-            font-size: 0.8rem;
+        .withdraw-guide ol, .withdraw-schedule ul {
+            padding-left: 20px;
             color: var(--text-secondary);
         }
 
-        .transaction-details {
-            text-align: right;
+        .withdraw-guide li, .withdraw-schedule li {
+            margin-bottom: 8px;
+            line-height: 1.4;
         }
 
-        .transaction-details span {
-            display: block;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        .transaction-status {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .transaction-status.pending {
-            background: rgba(255, 209, 102, 0.2);
-            color: var(--warning);
-        }
-
-        .transaction-status.completed {
-            background: rgba(6, 214, 160, 0.2);
-            color: var(--success);
-        }
-
-        .transaction-status.rejected {
-            background: rgba(239, 71, 111, 0.2);
-            color: var(--danger);
-        }
-
-        .history-empty {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-secondary);
-            display: none;
-        }
-
-        .history-empty i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: var(--text-muted);
-        }
-
-        /* Bank Modal */
-        .bank-modal .modal-content {
-            max-width: 500px;
-        }
-
-        .bank-form {
-            padding: 0;
-        }
-
-        /* Success Modal */
-        .success-modal .modal-content {
-            max-width: 500px;
-            text-align: center;
-        }
-
-        .success-icon {
-            font-size: 4rem;
-            color: var(--success);
-            margin-bottom: 20px;
-        }
-
-        .success-modal h2 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .success-modal p {
-            color: var(--text-secondary);
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .withdraw-details {
-            background: rgba(255,255,255,0.05);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .detail-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .detail-item:last-child {
-            border-bottom: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .withdraw-stats {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .withdraw-form-section {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-actions {
-                flex-direction: column;
-            }
-            
-            .transaction-info {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .transaction-details {
-                text-align: left;
-            }
+        .withdraw-guide strong {
+            color: var(--primary);
         }
     </style>
 </body>
