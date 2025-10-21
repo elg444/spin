@@ -1,0 +1,11 @@
+{
+  "name": "menang888",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "mongodb": "^5.8.0"
+  },
+  "scripts": {
+    "dev": "vercel dev"
+  }
+}
